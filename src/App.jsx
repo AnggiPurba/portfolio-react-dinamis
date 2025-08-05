@@ -16,12 +16,13 @@ import Footer from './components/Footer';
 
 function App() {
   const [data, setData] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] =useState(false);
   const [theme, setTheme] = useState('light');
   const [isLoginVisible, setIsLoginVisible] = useState(false);
 
   const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || "admin";
 
+  // Mengambil data dari Sanity saat aplikasi pertama kali dimuat
   useEffect(() => {
     const query = `{
       "profile": *[_type == "profile"][0],
@@ -60,30 +61,62 @@ function App() {
     setIsAdmin(false);
   };
 
-  // --- FUNGSI UPDATE BARU DENGAN SINTAKS YANG BENAR ---
+  // --- FUNGSI UPDATE BARU: Menyimpan data dan file ke Sanity ---
   const handleUpdate = async (updatedData) => {
     try {
-      // Buat sebuah array untuk menampung semua patch
-      const patches = Object.keys(updatedData).map(sectionKey => {
-        const sectionData = updatedData[sectionKey];
+      alert("Menyimpan perubahan ke server... Mohon tunggu.");
+
+      // Buat salinan data untuk dimodifikasi
+      let dataToPatch = JSON.parse(JSON.stringify(updatedData));
+
+      // 1. Upload semua file baru (yang memiliki URL 'blob:')
+      for (const item of dataToPatch.portfolio.items) {
+        if (item.image && item.image.startsWith('blob:')) {
+          const imageBlob = await fetch(item.image).then(res => res.blob());
+          const imageAsset = await sanityClient.assets.upload('image', imageBlob);
+          item.image = { _type: 'image', asset: { _type: 'reference', _ref: imageAsset._id } };
+        }
+        if (item.downloadableImage && item.downloadableImage.startsWith('blob:')) {
+          const fileBlob = await fetch(item.downloadableImage).then(res => res.blob());
+          const fileAsset = await sanityClient.assets.upload('file', fileBlob);
+          item.downloadableImage = { _type: 'file', asset: { _type: 'reference', _ref: fileAsset._id } };
+        }
+      }
+      
+      if (dataToPatch.profile.profileImage && dataToPatch.profile.profileImage.startsWith('blob:')) {
+        const blob = await fetch(dataToPatch.profile.profileImage).then(res => res.blob());
+        const asset = await sanityClient.assets.upload('image', blob);
+        dataToPatch.profile.profileImage = { _type: 'image', asset: { _type: 'reference', _ref: asset._id } };
+      }
+
+      if (dataToPatch.about.profileImage2 && dataToPatch.about.profileImage2.startsWith('blob:')) {
+        const blob = await fetch(dataToPatch.about.profileImage2).then(res => res.blob());
+        const asset = await sanityClient.assets.upload('image', blob);
+        dataToPatch.about.profileImage2 = { _type: 'image', asset: { _type: 'reference', _ref: asset._id } };
+      }
+      
+      if (dataToPatch.profile.cv && dataToPatch.profile.cv.startsWith('blob:')) {
+        const blob = await fetch(dataToPatch.profile.cv).then(res => res.blob());
+        const asset = await sanityClient.assets.upload('file', blob, { contentType: 'application/pdf', filename: 'CV_Dwi_Purba.pdf' });
+        dataToPatch.profile.cv = { _type: 'file', asset: { _type: 'reference', _ref: asset._id } };
+      }
+
+
+      // 2. Kirim semua perubahan teks dan referensi file ke Sanity
+      const transaction = sanityClient.transaction();
+      for (const sectionKey in dataToPatch) {
+        const sectionData = dataToPatch[sectionKey];
         if (sectionData && sectionData._id) {
           const {_id, _createdAt, _rev, _updatedAt, _type, ...restOfData} = sectionData;
-          // Setiap patch adalah sebuah objek
-          return {
-            patch: {
-              id: _id,
-              set: restOfData
-            }
-          };
+          transaction.patch(_id).set(restOfData);
         }
-        return null;
-      }).filter(Boolean); // Hapus item null dari array
+      }
 
-      // Kirim semua patch dalam satu transaksi
-      await sanityClient.mutate(patches);
+      await transaction.commit();
       
       alert('Data berhasil diperbarui di Sanity!');
-      setData(updatedData);
+      // Refresh halaman untuk memuat ulang semua data baru, termasuk URL gambar
+      window.location.reload();
 
     } catch (err) {
       console.error('Oh no, the update failed: ', err.message);
