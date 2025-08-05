@@ -16,13 +16,12 @@ import Footer from './components/Footer';
 
 function App() {
   const [data, setData] = useState(null);
-  const [isAdmin, setIsAdmin] =useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [theme, setTheme] = useState('light');
   const [isLoginVisible, setIsLoginVisible] = useState(false);
 
   const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || "admin";
 
-  // Mengambil data dari Sanity saat aplikasi pertama kali dimuat
   useEffect(() => {
     const query = `{
       "profile": *[_type == "profile"][0],
@@ -61,46 +60,36 @@ function App() {
     setIsAdmin(false);
   };
 
-  // --- FUNGSI UPDATE BARU: Menyimpan data dan file ke Sanity ---
+  // --- FUNGSI UPDATE BARU DENGAN LOGIKA UPLOAD FILE YANG BENAR ---
   const handleUpdate = async (updatedData) => {
     try {
-      alert("Menyimpan perubahan ke server... Mohon tunggu.");
+      alert("Menyimpan perubahan ke server... Ini mungkin memakan waktu beberapa saat jika ada file baru.");
 
-      // Buat salinan data untuk dimodifikasi
+      // Buat salinan data yang bisa diubah
       let dataToPatch = JSON.parse(JSON.stringify(updatedData));
 
-      // 1. Upload semua file baru (yang memiliki URL 'blob:')
+      // Fungsi pembantu untuk meng-upload file jika berupa blob
+      const uploadAssetIfNeeded = async (assetData, assetType = 'file', filename) => {
+        // Cek jika assetData adalah string dan diawali dengan 'blob:'
+        if (typeof assetData === 'string' && assetData.startsWith('blob:')) {
+          const blob = await fetch(assetData).then(res => res.blob());
+          const asset = await sanityClient.assets.upload(assetType, blob, { filename });
+          // Kembalikan format referensi Sanity yang benar
+          return { _type: assetType, asset: { _type: 'reference', _ref: asset._id } };
+        }
+        // Jika bukan blob, kembalikan data aslinya (kemungkinan sudah objek Sanity)
+        return assetData;
+      };
+      
+      // 1. Proses dan upload semua file/gambar yang baru
+      dataToPatch.profile.profileImage = await uploadAssetIfNeeded(dataToPatch.profile.profileImage, 'image');
+      dataToPatch.about.profileImage2 = await uploadAssetIfNeeded(dataToPatch.about.profileImage2, 'image');
+      dataToPatch.profile.cv = await uploadAssetIfNeeded(dataToPatch.profile.cv, 'file', 'CV_Dwi_Purba.pdf');
+
       for (const item of dataToPatch.portfolio.items) {
-        if (item.image && item.image.startsWith('blob:')) {
-          const imageBlob = await fetch(item.image).then(res => res.blob());
-          const imageAsset = await sanityClient.assets.upload('image', imageBlob);
-          item.image = { _type: 'image', asset: { _type: 'reference', _ref: imageAsset._id } };
-        }
-        if (item.downloadableImage && item.downloadableImage.startsWith('blob:')) {
-          const fileBlob = await fetch(item.downloadableImage).then(res => res.blob());
-          const fileAsset = await sanityClient.assets.upload('file', fileBlob);
-          item.downloadableImage = { _type: 'file', asset: { _type: 'reference', _ref: fileAsset._id } };
-        }
+        item.image = await uploadAssetIfNeeded(item.image, 'image');
+        item.downloadableImage = await uploadAssetIfNeeded(item.downloadableImage, 'file');
       }
-      
-      if (dataToPatch.profile.profileImage && dataToPatch.profile.profileImage.startsWith('blob:')) {
-        const blob = await fetch(dataToPatch.profile.profileImage).then(res => res.blob());
-        const asset = await sanityClient.assets.upload('image', blob);
-        dataToPatch.profile.profileImage = { _type: 'image', asset: { _type: 'reference', _ref: asset._id } };
-      }
-
-      if (dataToPatch.about.profileImage2 && dataToPatch.about.profileImage2.startsWith('blob:')) {
-        const blob = await fetch(dataToPatch.about.profileImage2).then(res => res.blob());
-        const asset = await sanityClient.assets.upload('image', blob);
-        dataToPatch.about.profileImage2 = { _type: 'image', asset: { _type: 'reference', _ref: asset._id } };
-      }
-      
-      if (dataToPatch.profile.cv && dataToPatch.profile.cv.startsWith('blob:')) {
-        const blob = await fetch(dataToPatch.profile.cv).then(res => res.blob());
-        const asset = await sanityClient.assets.upload('file', blob, { contentType: 'application/pdf', filename: 'CV_Dwi_Purba.pdf' });
-        dataToPatch.profile.cv = { _type: 'file', asset: { _type: 'reference', _ref: asset._id } };
-      }
-
 
       // 2. Kirim semua perubahan teks dan referensi file ke Sanity
       const transaction = sanityClient.transaction();
@@ -115,11 +104,11 @@ function App() {
       await transaction.commit();
       
       alert('Data berhasil diperbarui di Sanity!');
-      // Refresh halaman untuk memuat ulang semua data baru, termasuk URL gambar
+      // Refresh halaman untuk memuat ulang semua data baru, termasuk URL gambar permanen
       window.location.reload();
 
     } catch (err) {
-      console.error('Oh no, the update failed: ', err.message);
+      console.error('Oh no, the update failed: ', err);
       alert('Gagal memperbarui data. Lihat console untuk detail.');
     }
   };
