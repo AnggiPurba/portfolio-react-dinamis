@@ -1,61 +1,67 @@
-Dwi Paranggi Purba's Dynamic Portfolio
-This repository contains the source code for my personal portfolio, rebuilt from a static version into a fully dynamic React application with a headless CMS.
+# 🌐 Dwi Paranggi Purba's Dynamic Portfolio
 
-Description (English)
-This is my personal portfolio website, rebuilt from a static version into a fully dynamic React application. This project allows me to manage all content—from personal information, education history, experience, skills, to portfolio items—through a dedicated Admin Dashboard without touching the code.
+Welcome to the source code repository of my **personal portfolio website**, rebuilt from a static HTML version into a fully dynamic **React** application powered by a headless CMS architecture (in progress). This project is a showcase of my skills, projects, and journey — with content that can be managed entirely through an Admin Dashboard.
 
-Deskripsi (Bahasa Indonesia)
-Ini adalah website portofolio pribadi saya yang dibangun ulang dari versi statis menjadi aplikasi React yang sepenuhnya dinamis. Proyek ini memungkinkan saya untuk mengelola semua konten—mulai dari informasi pribadi, riwayat pendidikan, pengalaman, skill, hingga item portofolio—melalui Admin Dashboard khusus tanpa perlu menyentuh kode.
+---
 
-✨ Key Features
-Dynamic Content Management: All content can be modified via a password-protected Admin Dashboard.
+## 📌 Description (English)
 
-Full CRUD Functionality: Create, Read, Update, Delete capabilities for all sections.
+This is a fully dynamic React-based personal portfolio. It allows me to manage all website content — including personal info, education, experience, skills, and portfolio items — via a custom **Admin Dashboard**, without touching the code.
 
-Message Storage: A functional contact form that saves visitor messages, which can be viewed and managed in the Admin Dashboard.
+## 📌 Deskripsi (Bahasa Indonesia)
 
-Advanced Admin Features: The message table includes a search function, date range filtering, and the ability to download data as an Excel file.
+Ini adalah website portofolio pribadi saya yang telah dibangun ulang menggunakan React menjadi aplikasi dinamis. Semua konten — seperti informasi pribadi, riwayat pendidikan, pengalaman, keahlian, dan proyek — dikelola melalui **Admin Dashboard** tanpa perlu mengubah kode langsung.
 
-Dual Theme: A Light Mode and Dark Mode toggle that changes the appearance of the entire website, including the Admin Dashboard.
+---
 
-Persistent Local Storage: Utilizes the browser's localStorage to save all data changes persistently on the client-side.
+## ✨ Key Features / Fitur Utama
 
-Responsive Design: The layout adapts seamlessly to both desktop and mobile devices.
+### ✅ Dynamic Content Management
+> **EN:** All content can be edited via a password-protected Admin Dashboard.  
+> **ID:** Semua konten dapat diubah melalui Admin Dashboard yang dilindungi password.
 
-✨ Fitur Utama
-Manajemen Konten Dinamis: Semua konten dapat diubah melalui Admin Dashboard yang dilindungi password.
+### ✅ Full CRUD Functionality
+> **EN:** Create, Read, Update, Delete functionality across all sections.  
+> **ID:** Fungsionalitas CRUD penuh di semua bagian website.
 
-CRUD Penuh: Fungsionalitas Create, Read, Update, Delete untuk semua section.
+### ✅ Message Storage
+> **EN:** Contact form with message saving; view & manage messages via Dashboard.  
+> **ID:** Formulir kontak yang menyimpan pesan pengunjung; dapat dilihat dan dikelola di Dashboard.
 
-Penyimpanan Pesan: Form kontak yang berfungsi untuk menyimpan pesan dari pengunjung, yang dapat dilihat dan dikelola di Admin Dashboard.
+### ✅ Advanced Admin Features
+> **EN:** Search, date filter, and Excel export on the messages table.  
+> **ID:** Tabel pesan dilengkapi fitur pencarian, filter tanggal, dan ekspor ke Excel.
 
-Fitur Admin Lanjutan: Tabel pesan dilengkapi dengan fungsi pencarian, filter berdasarkan tanggal, dan kemampuan untuk mengunduh data sebagai file Excel.
+### ✅ Dual Theme Support
+> **EN:** Toggle between Light and Dark Modes across both site and Dashboard.  
+> **ID:** Dukungan tema Light dan Dark di seluruh situs dan Dashboard.
 
-Tema Ganda: Tombol Light Mode dan Dark Mode yang mengubah tampilan seluruh website, termasuk Admin Dashboard.
+### ✅ Responsive Design
+> **EN:** Fully responsive for desktop and mobile devices.  
+> **ID:** Tampilan sepenuhnya responsif untuk desktop maupun mobile.
 
-Penyimpanan Lokal Permanen: Menggunakan localStorage browser untuk menyimpan semua perubahan data secara persisten di sisi klien.
+---
 
-Desain Responsif: Tampilan yang beradaptasi dengan baik di perangkat desktop maupun mobile.
+## 🚀 Tech Stack / Teknologi yang Digunakan
 
-🚀 Tech Stack / Teknologi yang Digunakan
-Frontend: React (with Vite)
+- **Frontend:** React (with Vite)
+- **Styling:** CSS3 + CSS Variables (for theming)
+- **Animations:** `react-typed` (typing effects)
+- **Utilities:** `xlsx` (for exporting data to Excel)
+- **Backend & CMS (Coming Soon):** Sanity.io
+- **Hosting (Coming Soon):** Vercel
 
-Styling: CSS3 with CSS Variables for theming
+---
 
-Animation: react-typed for the typing effect
+## 📬 Contact
 
-Utilities: xlsx for exporting data to Excel
+If you'd like to connect or collaborate, feel free to reach out:
 
-Backend & CMS (Next Stage): Planned integration with Sanity.io
+- 📧 Email: [dwipurba77@gmail.com]
+- 💼 LinkedIn: [https://www.linkedin.com/in/dwi-paranggi-purba-250564226/)]
+- 🌍 Portfolio Live (soon): [https://portfolio-react-dinamis.vercel.app]
 
-Hosting (Next Stage): Planned deployment on Vercel
+---
 
-📁 Project Structure / Struktur Proyek
-/portfolio-lengkap
-  ├── /public               # Public assets like the favicon / Aset publik seperti ikon tab
-  ├── /src
-  │   ├── /assets           # Images and files used in the application / Gambar dan file yang digunakan di aplikasi
-  │   ├── /components       # React components (Header, About, AdminDashboard, etc.) / Komponen-komponen React
-  │   └── /data             # Initial data for the application (initialData.js) / Data awal untuk aplikasi
-  ├── .env                  # (Local) Securely stores the admin password / Menyimpan password admin dengan aman
-  └── README.md             # The file you are currently reading / File yang sedang Anda baca
+> 🙌 Thank you for checking out my portfolio repository! Contributions, suggestions, and feedback are welcome.
+
