@@ -60,20 +60,27 @@ function App() {
     setIsAdmin(false);
   };
 
-  // --- FUNGSI UPDATE BARU: Menggunakan sintaks Sanity yang benar ---
+  // --- FUNGSI UPDATE BARU DENGAN SINTAKS YANG BENAR ---
   const handleUpdate = async (updatedData) => {
     try {
-      const transaction = sanityClient.transaction();
-
-      for (const sectionKey in updatedData) {
+      // Buat sebuah array untuk menampung semua patch
+      const patches = Object.keys(updatedData).map(sectionKey => {
         const sectionData = updatedData[sectionKey];
         if (sectionData && sectionData._id) {
           const {_id, _createdAt, _rev, _updatedAt, _type, ...restOfData} = sectionData;
-          transaction.patch(_id).set(restOfData);
+          // Setiap patch adalah sebuah objek
+          return {
+            patch: {
+              id: _id,
+              set: restOfData
+            }
+          };
         }
-      }
+        return null;
+      }).filter(Boolean); // Hapus item null dari array
 
-      await transaction.commit();
+      // Kirim semua patch dalam satu transaksi
+      await sanityClient.mutate(patches);
       
       alert('Data berhasil diperbarui di Sanity!');
       setData(updatedData);
