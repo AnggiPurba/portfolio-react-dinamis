@@ -157,7 +157,7 @@ export const initialData = {
       email: "dwipurba77@gmail.com",
       phone: "+6281370504505",
       location: "Institut Teknologi Del, Laguboti, Indonesia",
-      googleMapsUrl: "http://googleusercontent.com/maps.google.com/8",
+      googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.353372051695!2d99.14623867496874!3d2.383255997683226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302e00fdad233345%3A0x2786422c2a31c10!2sInstitut%20Teknologi%20Del!5e0!3m2!1sen!2sid!4v1722883584501!5m2!1sen!2sid",
       messages: [] 
   },
   footer: {

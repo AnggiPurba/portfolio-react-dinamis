@@ -60,6 +60,7 @@ function App() {
     setIsAdmin(false);
   };
 
+  // --- FUNGSI UPDATE BARU: Menggunakan sintaks Sanity yang benar ---
   const handleUpdate = async (updatedData) => {
     try {
       const transaction = sanityClient.transaction();
@@ -67,7 +68,7 @@ function App() {
       for (const sectionKey in updatedData) {
         const sectionData = updatedData[sectionKey];
         if (sectionData && sectionData._id) {
-          const {_id, _createdAt, _rev, _updatedAt, ...restOfData} = sectionData;
+          const {_id, _createdAt, _rev, _updatedAt, _type, ...restOfData} = sectionData;
           transaction.patch(_id).set(restOfData);
         }
       }
@@ -82,8 +83,8 @@ function App() {
       alert('Gagal memperbarui data. Lihat console untuk detail.');
     }
   };
+  // --- AKHIR FUNGSI UPDATE BARU ---
 
-  // --- PERBAIKAN: Menghapus parameter yang tidak digunakan ---
   const handleNewMessage = () => {
     alert("Fungsi pengiriman pesan belum terhubung ke backend, pesan tidak akan tersimpan.");
   };
@@ -91,7 +92,6 @@ function App() {
   const handleDeleteMessage = () => {
     alert("Fungsi hapus pesan belum terhubung ke backend.");
   };
-  // --- AKHIR PERBAIKAN ---
 
   if (!data) {
     return <div style={{textAlign: 'center', paddingTop: '50px'}}>Loading Portfolio from Sanity...</div>;
