@@ -60,51 +60,51 @@ function App() {
     setIsAdmin(false);
   };
 
-  // --- FUNGSI UPDATE BARU DENGAN LOGIKA UPLOAD FILE YANG BENAR ---
   const handleUpdate = async (updatedData) => {
     try {
       alert("Menyimpan perubahan ke server... Ini mungkin memakan waktu beberapa saat jika ada file baru.");
 
-      // Buat salinan data yang bisa diubah
       let dataToPatch = JSON.parse(JSON.stringify(updatedData));
 
-      // Fungsi pembantu untuk meng-upload file jika berupa blob
       const uploadAssetIfNeeded = async (assetData, assetType = 'file', filename) => {
-        // Cek jika assetData adalah string dan diawali dengan 'blob:'
         if (typeof assetData === 'string' && assetData.startsWith('blob:')) {
           const blob = await fetch(assetData).then(res => res.blob());
           const asset = await sanityClient.assets.upload(assetType, blob, { filename });
-          // Kembalikan format referensi Sanity yang benar
           return { _type: assetType, asset: { _type: 'reference', _ref: asset._id } };
         }
-        // Jika bukan blob, kembalikan data aslinya (kemungkinan sudah objek Sanity)
         return assetData;
       };
       
-      // 1. Proses dan upload semua file/gambar yang baru
       dataToPatch.profile.profileImage = await uploadAssetIfNeeded(dataToPatch.profile.profileImage, 'image');
       dataToPatch.about.profileImage2 = await uploadAssetIfNeeded(dataToPatch.about.profileImage2, 'image');
       dataToPatch.profile.cv = await uploadAssetIfNeeded(dataToPatch.profile.cv, 'file', 'CV_Dwi_Purba.pdf');
 
-      for (const item of dataToPatch.portfolio.items) {
-        item.image = await uploadAssetIfNeeded(item.image, 'image');
-        item.downloadableImage = await uploadAssetIfNeeded(item.downloadableImage, 'file');
-      }
-
-      // 2. Kirim semua perubahan teks dan referensi file ke Sanity
-      const transaction = sanityClient.transaction();
-      for (const sectionKey in dataToPatch) {
-        const sectionData = dataToPatch[sectionKey];
-        if (sectionData && sectionData._id) {
-          const {_id, _createdAt, _rev, _updatedAt, _type, ...restOfData} = sectionData;
-          transaction.patch(_id).set(restOfData);
+      if (dataToPatch.portfolio.items) {
+        for (const item of dataToPatch.portfolio.items) {
+          item.image = await uploadAssetIfNeeded(item.image, 'image');
+          item.downloadableImage = await uploadAssetIfNeeded(item.downloadableImage, 'file');
         }
       }
 
-      await transaction.commit();
+      const patches = Object.keys(dataToPatch).map(sectionKey => {
+        const sectionData = dataToPatch[sectionKey];
+        if (sectionData && sectionData._id) {
+          const {_id, _createdAt, _rev, _updatedAt, _type, ...restOfData} = sectionData;
+          return {
+            patch: {
+              id: _id,
+              set: restOfData
+            }
+          };
+        }
+        return null;
+      }).filter(Boolean);
+
+      if (patches.length > 0) {
+        await sanityClient.mutate(patches);
+      }
       
       alert('Data berhasil diperbarui di Sanity!');
-      // Refresh halaman untuk memuat ulang semua data baru, termasuk URL gambar permanen
       window.location.reload();
 
     } catch (err) {
@@ -112,7 +112,6 @@ function App() {
       alert('Gagal memperbarui data. Lihat console untuk detail.');
     }
   };
-  // --- AKHIR FUNGSI UPDATE BARU ---
 
   const handleNewMessage = () => {
     alert("Fungsi pengiriman pesan belum terhubung ke backend, pesan tidak akan tersimpan.");
