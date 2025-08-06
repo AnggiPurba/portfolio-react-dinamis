@@ -1,32 +1,30 @@
 // src/components/About.jsx
 
 import React from 'react';
-import SubSectionHeading from './SubSectionHeading'; // <-- Import komponen sub-section
-import { urlFor } from '../sanityClient'; // <-- Import helper
+import SubSectionHeading from './SubSectionHeading';
+import { urlFor } from '../sanityClient';
 
 const About = ({ data }) => {
-  // Membuat daftar menjadi dinamis
-  const midpoint = Math.ceil(data.personalInfo.length / 2);
-  const firstHalf = data.personalInfo.slice(0, midpoint);
-  const secondHalf = data.personalInfo.slice(midpoint);
+  const personalInfo = data?.personalInfo || [];
+  const midpoint = Math.ceil(personalInfo.length / 2);
+  const firstHalf = personalInfo.slice(0, midpoint);
+  const secondHalf = personalInfo.slice(midpoint);
 
   return (
     <section id="about">
-      <h1 className="sub-heading">{data.heading}</h1>
+      <h1 className="sub-heading">{data?.heading}</h1>
       <div className="divider"></div>
-      <p className="sub-para">{data.sub_para}</p>
+      <p className="sub-para">{data?.sub_para}</p>
 
       <div className="about-col">
         <div className="img-col">
-          {data.profileImage2 && (
+          {data?.profileImage2 && (
             <img src={urlFor(data.profileImage2).url()} alt="About Me" />
           )}
         </div>
         <div className="info-col">
-          {/* --- PERUBAHAN DI SINI --- */}
-          <SubSectionHeading title={data.personal_info_title} />
-          {/* --- AKHIR PERUBAHAN --- */}
-          <p>{data.personal_info_para}</p>
+          <SubSectionHeading title={data?.personal_info_title} />
+          <p>{data?.personal_info_para}</p>
           <div className="icon-list-col">
             <div className="icon-list">
               <ul>
