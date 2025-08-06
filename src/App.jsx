@@ -22,6 +22,7 @@ function App() {
 
   const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || "admin";
 
+  // Mengambil data dari Sanity saat aplikasi pertama kali dimuat
   useEffect(() => {
     const query = `{
       "profile": *[_type == "profile"][0],
@@ -60,6 +61,7 @@ function App() {
     setIsAdmin(false);
   };
 
+  // FUNGSI UPDATE BARU: Menyimpan data dan file ke Sanity
   const handleUpdate = async (updatedData) => {
     try {
       alert("Menyimpan perubahan ke server... Ini mungkin memakan waktu beberapa saat jika ada file baru.");
@@ -86,23 +88,16 @@ function App() {
         }
       }
 
-      const patches = Object.keys(dataToPatch).map(sectionKey => {
+      const transaction = sanityClient.transaction();
+      for (const sectionKey in dataToPatch) {
         const sectionData = dataToPatch[sectionKey];
         if (sectionData && sectionData._id) {
           const {_id, _createdAt, _rev, _updatedAt, _type, ...restOfData} = sectionData;
-          return {
-            patch: {
-              id: _id,
-              set: restOfData
-            }
-          };
+          transaction.patch(_id).set(restOfData);
         }
-        return null;
-      }).filter(Boolean);
-
-      if (patches.length > 0) {
-        await sanityClient.mutate(patches);
       }
+
+      await transaction.commit();
       
       alert('Data berhasil diperbarui di Sanity!');
       window.location.reload();
@@ -113,12 +108,46 @@ function App() {
     }
   };
 
-  const handleNewMessage = () => {
-    alert("Fungsi pengiriman pesan belum terhubung ke backend, pesan tidak akan tersimpan.");
+  // FUNGSI BARU UNTUK MENYIMPAN PESAN KE SANITY
+  const handleNewMessage = (message) => {
+    const contactDocId = data.contact._id;
+    
+    // Menambahkan pesan baru ke dalam array 'messages' di dokumen contact
+    sanityClient
+      .patch(contactDocId)
+      .setIfMissing({messages: []})
+      .append('messages', [message])
+      .commit({autoGenerateArrayKeys: true})
+      .then(() => {
+        alert('Pesan Anda berhasil terkirim!');
+        // Refresh data untuk menampilkan pesan baru di admin dashboard jika perlu
+        sanityClient.fetch(`*[_id == "${contactDocId}"][0]`).then(newContactData => {
+          setData(prevData => ({...prevData, contact: newContactData}));
+        });
+      })
+      .catch(err => {
+        console.error('Gagal mengirim pesan:', err);
+        alert('Gagal mengirim pesan.');
+      });
   };
 
-  const handleDeleteMessage = () => {
-    alert("Fungsi hapus pesan belum terhubung ke backend.");
+  const handleDeleteMessage = (messageKey) => {
+    if (window.confirm("Apakah Anda yakin ingin menghapus pesan ini?")) {
+      const contactDocId = data.contact._id;
+      // Menghapus item dari array 'messages' berdasarkan _key-nya
+      sanityClient
+        .patch(contactDocId)
+        .unset([`messages[_key=="${messageKey}"]`])
+        .commit()
+        .then(newContactData => {
+           alert('Pesan berhasil dihapus.');
+           setData(prevData => ({...prevData, contact: newContactData}));
+        })
+        .catch(err => {
+            console.error('Gagal menghapus pesan:', err);
+            alert('Gagal menghapus pesan.');
+        });
+    }
   };
 
   if (!data) {
