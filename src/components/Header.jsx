@@ -61,7 +61,7 @@ const Header = ({ data }) => {
             <li><a href="#home" className="active"><i className="fa-solid fa-house"></i>Home</a></li>
             <li><a href="#about"><i className="fa-solid fa-user"></i>About Me</a></li>
             <li><a href="#resume"><i className="fa-solid fa-briefcase"></i>Resume</a></li>
-            <li><a href="#skill"><i className="fa-solid fa-server"></i>Skills</a></li>
+          <li><a href="#skill"><i className="fa-solid fa-cogs"></i>Skills</a></li>
             <li><a href="#portfolio"><i className="fa-solid fa-server"></i>Portfolio</a></li>
             <li><a href="#contact"><i className="fa-solid fa-envelope"></i>Contact Me</a></li>
           </ul>
