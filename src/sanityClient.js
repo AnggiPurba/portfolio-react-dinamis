@@ -19,13 +19,14 @@ export const client = createClient({
 const builder = imageUrlBuilder(client)
 export const urlFor = (source) => builder.image(source)
 
-// Fungsi helper untuk mendapatkan URL file permanen dari Sanity
+// --- FUNGSI DIPERBARUI UNTUK MEMAKSA DOWNLOAD ---
 export const fileUrlFor = (source) => {
   if (!source || !source.asset || !source.asset._ref) {
-    return '#'; // Kembalikan link kosong jika tidak ada file
+    return '#';
   }
-  // Format: https://cdn.sanity.io/files/<projectId>/<dataset>/<fileId>.<extension>
   const ref = source.asset._ref;
   const [_file, fileId, extension] = ref.split('-');
-  return `https://cdn.sanity.io/files/${projectId}/production/${fileId}.${extension}`;
+  // Menambahkan '?dl=' akan memaksa browser untuk men-download
+  return `https://cdn.sanity.io/files/${projectId}/production/${fileId}.${extension}?dl`;
 }
+
