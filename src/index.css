@@ -502,7 +502,8 @@ section {
 }
 .skill-list-container {
     margin-top: 35px;
-
+    display: flex;
+    flex-direction: column;
     gap: 20px;
 }
 
