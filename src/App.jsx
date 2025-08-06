@@ -117,12 +117,12 @@ function App() {
       .append('messages', [message])
       .commit({autoGenerateArrayKeys: true})
       .then((updatedDoc) => {
-        alert('Pesan Anda berhasil terkirim!');
+        alert('Message Successfully Sent!');
         setData(prevData => ({...prevData, contact: updatedDoc}));
       })
       .catch(err => {
-        console.error('Gagal mengirim pesan:', err);
-        alert('Gagal mengirim pesan.');
+        console.error('Failed:', err);
+        alert('Failed.');
       });
   };
 

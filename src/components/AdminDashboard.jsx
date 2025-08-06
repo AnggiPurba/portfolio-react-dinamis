@@ -3,8 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import ThemeToggleButton from './ThemeToggleButton';
 import * as XLSX from 'xlsx';
-import { urlFor, fileUrlFor } from '../sanityClient'; // Import helpers
-
+import { urlFor, fileUrlFor } from '../sanityClient';
 
 const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, onDeleteMessage }) => {
   const [data, setData] = useState(JSON.parse(JSON.stringify(currentData)));
@@ -13,6 +12,10 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [filteredMessages, setFilteredMessages] = useState([]);
+
+  useEffect(() => {
+    setData(JSON.parse(JSON.stringify(currentData)));
+  }, [currentData]);
 
   useEffect(() => {
     let messages = data.contact?.messages || [];
@@ -52,7 +55,6 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
       XLSX.writeFile(workbook, `messages_${startDate}_to_${endDate}.xlsx`);
   };
   
-  // Pastikan data selalu memiliki struktur array yang diharapkan
   if (!data.home.titles) data.home.titles = [];
   if (!data.profile.githubUrls) data.profile.githubUrls = [];
   if (!data.about.personalInfo) data.about.personalInfo = [];
@@ -107,19 +109,19 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
     setData(prev => {
         const updated = JSON.parse(JSON.stringify(prev));
         if(section === 'about.personalInfo') {
-            updated.about.personalInfo.push({ label: "Label Baru", value: "Isi Baru" });
+            updated.about.personalInfo.push({ _key: `new_${Date.now()}`, label: "Label Baru", value: "Isi Baru" });
         }
         if(section === 'resume.education') {
-            updated.resume.education.push({ id: Date.now(), degree: "", startDate: "Jan 2024", endDate: "Present", institution: "", description: "" });
+            updated.resume.education.push({ _key: `new_${Date.now()}`, degree: "", startDate: "Jan 2024", endDate: "Present", institution: "", description: "" });
         }
         if(section === 'resume.experience') {
-            updated.resume.experience.push({ id: Date.now(), title: "", startDate: "Jan 2024", endDate: "Present", institution: "", details: ["Detail baru"] });
+            updated.resume.experience.push({ _key: `new_${Date.now()}`, title: "", startDate: "Jan 2024", endDate: "Present", institution: "", details: ["Detail baru"] });
         }
         if(section === 'skills.skill_categories') {
-            updated.skills.skill_categories.push({ id: Date.now(), category_name: "Kategori Baru", skill_list: "Skill 1, Skill 2" });
+            updated.skills.skill_categories.push({ _key: `new_${Date.now()}`, category_name: "Kategori Baru", skill_list: "Skill 1, Skill 2" });
         }
         if(section === 'portfolio.items') {
-            updated.portfolio.items.push({ id: Date.now(), category: "project", image: "", downloadableImage: null, title: "Item Baru", description: "Deskripsi singkat.", link: "#" });
+            updated.portfolio.items.push({ _key: `new_${Date.now()}`, category: "project", image: "", downloadableImage: null, title: "Item Baru", description: "Deskripsi singkat.", link: "#" });
         }
         return updated;
     });
@@ -158,21 +160,12 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
       }
   };
 
-  const handleSave = () => {
-    let dataToSave = JSON.parse(JSON.stringify(data));
-    dataToSave.home.titles = dataToSave.home.titles.filter(title => title.trim() !== '');
-    dataToSave.profile.githubUrls = dataToSave.profile.githubUrls.filter(url => url.trim() !== '');
-    onUpdate(dataToSave);
-  }
-
-   const handleProfileImageChange = (e, field) => {
+  const handleProfileImageChange = (e, field) => {
       const file = e.target.files[0];
       if (file) {
           const fileUrl = URL.createObjectURL(file);
           setData(prev => {
             const updated = JSON.parse(JSON.stringify(prev));
-            // This allows us to reuse this handler for different images
-            // e.g., 'profile.profileImage' or 'about.profileImage2'
             const keys = field.split('.');
             let current = updated;
             for (let i = 0; i < keys.length - 1; i++) {
@@ -183,6 +176,13 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
           });
       }
   };
+
+  const handleSave = () => {
+    let dataToSave = JSON.parse(JSON.stringify(data));
+    dataToSave.home.titles = dataToSave.home.titles.filter(title => title.trim() !== '');
+    dataToSave.profile.githubUrls = dataToSave.profile.githubUrls.filter(url => url.trim() !== '');
+    onUpdate(dataToSave);
+  }
 
   const isDark = theme === 'dark';
   const dashStyle = { padding: '30px', fontFamily: 'sans-serif', backgroundColor: isDark ? '#1a1a1a' : '#f0f2f5', minHeight: '100vh', color: isDark ? '#fff' : '#333' };
@@ -206,7 +206,7 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
         <button onClick={onLogout} style={{ padding: '10px 20px', backgroundColor: '#dc3545', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Logout</button>
       </div>
 
-       <div style={sectionStyle}>
+      <div style={sectionStyle}>
           <h2>Profile Section</h2>
           <label>Name:</label><br/>
           <input style={inputStyle} type="text" name="profile.name" value={data.profile.name} onChange={handleTextChange} /><br/>
@@ -219,7 +219,7 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
           }
           <input style={inputStyle} type="file" accept="image/*" onChange={(e) => handleProfileImageChange(e, 'profile.profileImage')} /><br/>
           <label>GitHub URLs (satu link per baris):</label><br/>
-          <textarea style={textareaStyle} value={data.profile.githubUrls.join('\n')} onChange={handleGithubUrlsChange} /><br/>
+          <textarea style={textareaStyle} value={(data.profile.githubUrls || []).join('\n')} onChange={handleGithubUrlsChange} /><br/>
           <label>LinkedIn URL:</label><br/>
           <input style={inputStyle} type="text" name="profile.linkedinUrl" value={data.profile.linkedinUrl} onChange={handleTextChange} /><br/>
           <label>Upload New CV (PDF):</label><br/>
@@ -239,7 +239,7 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
           <label>Name:</label><br/>
           <input style={inputStyle} type="text" name="home.name" value={data.home.name} onChange={handleTextChange} /><br/>
           <label>Titles for Typing Effect (satu judul per baris):</label><br/>
-          <textarea style={textareaStyle} value={data.home.titles.join('\n')} onChange={handleTitlesChange} /><br/>
+          <textarea style={textareaStyle} value={(data.home.titles || []).join('\n')} onChange={handleTitlesChange} /><br/>
           <label>Location:</label><br/>
           <input style={inputStyle} type="text" name="home.location" value={data.home.location} onChange={handleTextChange} /><br/>
       </div>
@@ -250,7 +250,6 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
           <input style={inputStyle} type="text" name="about.heading" value={data.about.heading} onChange={handleTextChange} /><br/>
           <label>Sub Paragraph:</label><br/>
           <textarea style={textareaStyle} name="about.sub_para" value={data.about.sub_para} onChange={handleTextChange} /><br/>
-           {/* --- INPUT BARU UNTUK FOTO "ABOUT ME" --- */}
           <label>About Me Photo:</label><br/>
           {data.about.profileImage2?.asset && 
               <div style={{marginBottom: '10px'}}>
@@ -259,7 +258,6 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
               </div>
           }
           <input style={inputStyle} type="file" accept="image/*" onChange={(e) => handleProfileImageChange(e, 'about.profileImage2')} /><br/>
-          {/* --- AKHIR INPUT BARU --- */}
           <label>Personal Info Title:</label><br/>
           <input style={inputStyle} type="text" name="about.personal_info_title" value={data.about.personal_info_title} onChange={handleTextChange} /><br/>
           <label>Personal Info Paragraph:</label><br/>
@@ -267,7 +265,7 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
           <hr style={{margin: '20px 0'}}/>
           <h3>Personal Information Items:</h3>
           {data.about.personalInfo.map((item, index) => (
-            <div key={index} style={itemStyle}>
+            <div key={item._key || index} style={itemStyle}>
               <input style={{flex: 1}} type="text" placeholder="Label (e.g., Age)" value={item.label} onChange={(e) => handleArrayItemChange('about.personalInfo', index, 'label', e.target.value)} />
               <input style={{flex: 2}} type="text" placeholder="Value (e.g., 20)" value={item.value} onChange={(e) => handleArrayItemChange('about.personalInfo', index, 'value', e.target.value)} />
               <button style={deleteButtonStyle} onClick={() => handleDeleteItem('about.personalInfo', index)}>Delete</button>
@@ -291,7 +289,7 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
         <hr style={{margin: '20px 0'}}/>
         <h3>Education</h3>
         {data.resume.education.map((edu, index) => (
-            <div key={edu.id} style={{...subItemStyle, marginBottom: '20px'}}>
+            <div key={edu._key || edu.id} style={{...subItemStyle, marginBottom: '20px'}}>
                 <label>Degree:</label><br/>
                 <input style={inputStyle} type="text" value={edu.degree} onChange={e => handleArrayItemChange('resume.education', index, 'degree', e.target.value)} /><br/>
                 <div style={{display: 'flex', gap: '10px'}}>
@@ -309,7 +307,7 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
         <hr style={{margin: '20px 0'}}/>
         <h3>Experience</h3>
         {data.resume.experience.map((exp, index) => (
-            <div key={exp.id} style={{...subItemStyle, marginBottom: '20px'}}>
+            <div key={exp._key || exp.id} style={{...subItemStyle, marginBottom: '20px'}}>
                 <label>Title:</label><br/>
                 <input style={inputStyle} type="text" value={exp.title} onChange={e => handleArrayItemChange('resume.experience', index, 'title', e.target.value)} /><br/>
                 <div style={{display: 'flex', gap: '10px'}}>
@@ -319,7 +317,7 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
                 <label>Institution:</label><br/>
                 <input style={inputStyle} type="text" value={exp.institution} onChange={e => handleArrayItemChange('resume.experience', index, 'institution', e.target.value)} /><br/>
                 <label>Details (satu detail per baris):</label><br/>
-                <textarea style={textareaStyle} value={exp.details.join('\n')} onChange={e => { const newDetails = e.target.value.split('\n'); handleArrayItemChange('resume.experience', index, 'details', newDetails); }} /><br/>
+                <textarea style={textareaStyle} value={(exp.details || []).join('\n')} onChange={e => { const newDetails = e.target.value.split('\n'); handleArrayItemChange('resume.experience', index, 'details', newDetails); }} /><br/>
                 <button style={deleteButtonStyle} onClick={() => handleDeleteItem('resume.experience', index)}>Delete Experience</button>
             </div>
         ))}
@@ -335,7 +333,7 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
         <hr style={{margin: '20px 0'}}/>
         <h3>Skill Categories:</h3>
         {data.skills.skill_categories.map((category, index) => (
-            <div key={category.id} style={{...subItemStyle, marginBottom: '20px'}}>
+            <div key={category._key || category.id} style={{...subItemStyle, marginBottom: '20px'}}>
                 <label>Category Name:</label><br/>
                 <input style={inputStyle} type="text" placeholder="e.g., Front-End Development" value={category.category_name} onChange={(e) => handleArrayItemChange('skills.skill_categories', index, 'category_name', e.target.value)} />
                 <label>Skill List (pisahkan dengan koma):</label><br/>
@@ -348,28 +346,34 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
       
       <div style={sectionStyle}>
         <h2>Portfolio Section</h2>
-        {/* ... (input heading, sub_para, dll tetap sama) ... */}
+        <label>Heading:</label><br/>
+        <input style={inputStyle} type="text" name="portfolio.heading" value={data.portfolio.heading} onChange={handleTextChange} /><br/>
+        <label>Sub Paragraph:</label><br/>
+        <textarea style={textareaStyle} name="portfolio.sub_para" value={data.portfolio.sub_para} onChange={handleTextChange} /><br/>
+        <label>Certificates Title:</label><br/>
+        <input style={inputStyle} type="text" name="portfolio.certificates_title" value={data.portfolio.certificates_title} onChange={handleTextChange} /><br/>
+        <label>Projects Title:</label><br/>
+        <input style={inputStyle} type="text" name="portfolio.projects_title" value={data.portfolio.projects_title} onChange={handleTextChange} /><br/>
         <hr style={{margin: '20px 0'}}/>
         <h3>Portfolio Items:</h3>
         {data.portfolio.items.map((item, index) => (
             <div key={item._key || item.id} style={{...subItemStyle, marginBottom: '20px'}}>
-                {/* ... (input category, title, description, link tetap sama) ... */}
+                <label>Category:</label><br/>
+                <select style={inputStyle} value={item.category} onChange={e => handleArrayItemChange('portfolio.items', index, 'category', e.target.value)} >
+                    <option value="certificate">Certificate</option>
+                    <option value="project">Project</option>
+                </select><br/>
+                <label>Title:</label><br/>
+                <input style={inputStyle} type="text" value={item.title} onChange={e => handleArrayItemChange('portfolio.items', index, 'title', e.target.value)} /><br/>
+                <label>Description:</label><br/>
+                <textarea style={textareaStyle} value={item.description} onChange={e => handleArrayItemChange('portfolio.items', index, 'description', e.target.value)} /><br/>
+                <label>External Link (untuk tombol "Lihat"):</label><br/>
+                <input style={inputStyle} type="text" value={item.link} onChange={e => handleArrayItemChange('portfolio.items', index, 'link', e.target.value)} /><br/>
                 <label>Thumbnail Image (Untuk Tampilan):</label><br/>
-                {item.image?.asset && 
-                    <div style={{marginBottom: '10px'}}>
-                        <img src={urlFor(item.image).width(100).url()} alt="thumbnail preview" style={{width: '100px', height: 'auto', border: '1px solid #ccc'}}/>
-                        <p style={{fontSize: '12px', color: '#888'}}>Gambar saat ini sudah ada. Pilih file baru untuk mengganti.</p>
-                    </div>
-                }
+                {item.image?.asset && <div style={{marginBottom: '10px'}}><img src={urlFor(item.image).width(100).url()} alt="thumbnail preview" style={{width: '100px', height: 'auto', border: '1px solid #ccc'}}/><p style={{fontSize: '12px', color: '#888'}}>Gambar saat ini sudah ada. Pilih file baru untuk mengganti.</p></div>}
                 <input style={inputStyle} type="file" accept="image/*" onChange={e => handlePortfolioFileChange(e, index, 'image')} /><br/>
-                
                 <label>Downloadable File (Gambar/Sertifikat):</label><br/>
-                {item.downloadableImage?.asset &&
-                    <div style={{marginBottom: '10px'}}>
-                        <a href={fileUrlFor(item.downloadableImage)} target="_blank" rel="noopener noreferrer">Lihat file saat ini</a>
-                        <p style={{fontSize: '12px', color: '#888'}}>File unduhan saat ini sudah ada. Pilih file baru untuk mengganti.</p>
-                    </div>
-                }
+                {item.downloadableImage?.asset && <div style={{marginBottom: '10px'}}><a href={fileUrlFor(item.downloadableImage)} target="_blank" rel="noopener noreferrer">Lihat file saat ini</a><p style={{fontSize: '12px', color: '#888'}}>File unduhan saat ini sudah ada. Pilih file baru untuk mengganti.</p></div>}
                 <input style={inputStyle} type="file" accept="image/*,.pdf" onChange={e => handlePortfolioFileChange(e, index, 'downloadableImage')} /><br/>
                 <button style={deleteButtonStyle} onClick={() => handleDeleteItem('portfolio.items', index)}>Delete Item</button>
             </div>
@@ -415,7 +419,7 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
                   </thead>
                   <tbody>
                       {filteredMessages.length > 0 ? filteredMessages.map((msg, index) => (
-                          <tr key={index}>
+                          <tr key={msg._key || index}>
                               <td style={{padding: '8px', border: `1px solid ${isDark ? '#555' : '#ddd'}`}}>{new Date(msg.date).toLocaleString()}</td>
                               <td style={{padding: '8px', border: `1px solid ${isDark ? '#555' : '#ddd'}`}}>{msg.name}</td>
                               <td style={{padding: '8px', border: `1px solid ${isDark ? '#555' : '#ddd'}`}}>{msg.email}</td>
