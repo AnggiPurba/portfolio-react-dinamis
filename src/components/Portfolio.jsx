@@ -22,7 +22,7 @@ const Portfolio = ({ data }) => {
             <div className="port-links">
                 {item.link && item.link !== '#' && (
                     <a href={item.link} className="port-link-btn" target="_blank" rel="noopener noreferrer">
-                        <i className="fa-solid fa-link"></i> Lihat
+                        <i className="fa-solid fa-link"></i> Link
                     </a>
                 )}
                 {item.downloadableImage && (
