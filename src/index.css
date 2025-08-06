@@ -733,7 +733,7 @@ section {
   height: 40px;
   color: #fff;
   background-color: var(--iconBGColor);
-  border: 2px solid var(--themeColor);
+  border: 2px solid var(--themeColor2);
   text-align: center;
   line-height: 38px;
   border-radius: 50%;
@@ -742,7 +742,7 @@ section {
   transition: 0.3s;
 }
 .theme-toggle-button:hover {
-  background-color: var(--themeColor);
+  background-color: var(--themeColor2);
 }
 @media only screen and (max-width: 1050px) {
   .theme-toggle-button {
