@@ -159,7 +159,9 @@ header nav ul li a i {
 }
 
 /* --- PERUBAHAN & TAMBAHAN DI SINI --- */
-header nav ul li a:hover i,
+header nav ul li a:hover i{
+   color: var(--themeColor2);
+}
 header nav ul li a.active i {
   color: var(--themeColor); /* Warna hijau untuk ikon aktif/hover */
 }
