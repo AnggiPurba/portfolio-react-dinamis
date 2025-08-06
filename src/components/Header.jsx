@@ -1,5 +1,5 @@
 // src/components/Header.jsx
-
+import { urlFor } from '../sanityClient'; // <-- Import helper
 import React, { useEffect } from 'react';
 
 const Header = ({ data }) => {
@@ -47,7 +47,9 @@ const Header = ({ data }) => {
       <i className="fa-solid fa-bars" id="MenuBtn" onClick={handleMenuToggle}></i>
       <header>
         <div className="profile">
-          <img src={data.profileImage} alt="Profile" width="150px" />
+           {data.profileImage && (
+            <img src={urlFor(data.profileImage).width(150).url()} alt="Profile" />
+          )}
           <h1>{data.name}</h1>
           <div className="social-icons">
             {/* --- PERUBAHAN PADA LINK GITHUB --- */}

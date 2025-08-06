@@ -61,15 +61,13 @@ function App() {
     setIsAdmin(false);
   };
 
-  // --- FUNGSI UPDATE BARU DENGAN LOGIKA UPLOAD FILE YANG BENAR ---
+  // FUNGSI UPDATE BARU: Menyimpan data dan file ke Sanity
   const handleUpdate = async (updatedData) => {
     try {
       alert("Menyimpan perubahan ke server... Ini mungkin memakan waktu beberapa saat jika ada file baru.");
 
-      // Buat salinan data yang bisa diubah
       let dataToPatch = JSON.parse(JSON.stringify(updatedData));
 
-      // Fungsi pembantu untuk meng-upload file jika berupa blob
       const uploadAssetIfNeeded = async (assetData, assetType = 'file', filename) => {
         if (typeof assetData === 'string' && assetData.startsWith('blob:')) {
           const blob = await fetch(assetData).then(res => res.blob());
@@ -79,7 +77,6 @@ function App() {
         return assetData;
       };
       
-      // 1. Proses dan upload semua file/gambar yang baru
       dataToPatch.profile.profileImage = await uploadAssetIfNeeded(dataToPatch.profile.profileImage, 'image');
       dataToPatch.about.profileImage2 = await uploadAssetIfNeeded(dataToPatch.about.profileImage2, 'image');
       dataToPatch.profile.cv = await uploadAssetIfNeeded(dataToPatch.profile.cv, 'file', 'CV_Dwi_Purba.pdf');
@@ -91,7 +88,6 @@ function App() {
         }
       }
 
-      // 2. Kirim semua perubahan teks dan referensi file ke Sanity
       const patches = Object.keys(dataToPatch).map(sectionKey => {
         const sectionData = dataToPatch[sectionKey];
         if (sectionData && sectionData._id) {
@@ -118,11 +114,12 @@ function App() {
       alert('Gagal memperbarui data. Lihat console untuk detail.');
     }
   };
-  // --- AKHIR FUNGSI UPDATE BARU ---
 
+  // FUNGSI BARU UNTUK MENYIMPAN PESAN KE SANITY
   const handleNewMessage = (message) => {
     const contactDocId = data.contact._id;
     
+    // Menambahkan pesan baru ke dalam array 'messages' di dokumen contact
     sanityClient
       .patch(contactDocId)
       .setIfMissing({messages: []})
@@ -130,6 +127,7 @@ function App() {
       .commit({autoGenerateArrayKeys: true})
       .then(() => {
         alert('Pesan Anda berhasil terkirim!');
+        // Refresh data untuk menampilkan pesan baru di admin dashboard jika perlu
         sanityClient.fetch(`*[_id == "${contactDocId}"][0]`).then(newContactData => {
           setData(prevData => ({...prevData, contact: newContactData}));
         });
@@ -143,6 +141,7 @@ function App() {
   const handleDeleteMessage = (messageKey) => {
     if (window.confirm("Apakah Anda yakin ingin menghapus pesan ini?")) {
       const contactDocId = data.contact._id;
+      // Menghapus item dari array 'messages' berdasarkan _key-nya
       sanityClient
         .patch(contactDocId)
         .unset([`messages[_key=="${messageKey}"]`])

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import SubSectionHeading from './SubSectionHeading'; // <-- Import komponen baru
+import { urlFor } from '../sanityClient'; // <-- Import helper
 
 const Portfolio = ({ data }) => {
   const certificates = data.items.filter(item => item.category === 'certificate');
@@ -19,7 +20,9 @@ const Portfolio = ({ data }) => {
         {certificates.map(item => (
           <div className="port-item" key={item.id}>
             <div className="port-img">
-              <img src={item.image} alt={item.title} />
+            {item.image && (
+                <img src={urlFor(item.image).url()} alt={item.title} />
+              )}
               <div className="port-info">
                 <h4>{item.title}</h4>
                 <p>{item.description}</p>
@@ -47,7 +50,9 @@ const Portfolio = ({ data }) => {
         {projects.map(item => (
           <div className="port-item" key={item.id}>
             <div className="port-img">
-              <img src={item.image} alt={item.title} />
+                {item.image && (
+                <img src={urlFor(item.image).url()} alt={item.title} />
+              )}
               <div className="port-info">
                 <h4>{item.title}</h4>
                 <p>{item.description}</p>

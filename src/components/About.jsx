@@ -2,6 +2,7 @@
 
 import React from 'react';
 import SubSectionHeading from './SubSectionHeading'; // <-- Import komponen sub-section
+import { urlFor } from '../sanityClient'; // <-- Import helper
 
 const About = ({ data }) => {
   // Membuat daftar menjadi dinamis
@@ -17,7 +18,9 @@ const About = ({ data }) => {
 
       <div className="about-col">
         <div className="img-col">
-          <img src={data.profileImage2} alt="About Me" />
+          {data.profileImage2 && (
+            <img src={urlFor(data.profileImage2).url()} alt="About Me" />
+          )}
         </div>
         <div className="info-col">
           {/* --- PERUBAHAN DI SINI --- */}
