@@ -17,13 +17,15 @@ const Header = ({ data }) => {
     });
   };
 
+  // --- LOGIKA BARU UNTUK NAVIGASI AKTIF SAAT SCROLL ---
   useEffect(() => {
       const navLinks = document.querySelectorAll('nav ul li a');
       const sections = document.querySelectorAll('section');
+
       const handleScroll = () => {
-          const scrollPos = window.scrollY + 90;
+          const scrollPos = window.scrollY + 200; // +200 agar lebih akurat di tengah layar
           sections.forEach(section => {
-              if (scrollPos > section.offsetTop && scrollPos < section.offsetHeight) {
+              if (scrollPos > section.offsetTop && scrollPos < (section.offsetTop + section.offsetHeight)) {
                   navLinks.forEach(link => {
                       link.classList.remove('active');
                       if (section.getAttribute('id') === link.getAttribute('href').substring(1)) {
@@ -33,9 +35,12 @@ const Header = ({ data }) => {
               }
           });
       };
+
       window.addEventListener('scroll', handleScroll);
+      // Membersihkan event listener saat komponen tidak lagi digunakan
       return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  // --- AKHIR LOGIKA BARU ---
 
   return (
     <>
@@ -61,7 +66,7 @@ const Header = ({ data }) => {
             <li><a href="#home" className="active"><i className="fa-solid fa-house"></i>Home</a></li>
             <li><a href="#about"><i className="fa-solid fa-user"></i>About Me</a></li>
             <li><a href="#resume"><i className="fa-solid fa-briefcase"></i>Resume</a></li>
-          <li><a href="#skill"><i className="fa-solid fa-cogs"></i>Skills</a></li>
+            <li><a href="#skill"><i className="fa-solid fa-cogs"></i>Skills</a></li>
             <li><a href="#portfolio"><i className="fa-solid fa-server"></i>Portfolio</a></li>
             <li><a href="#contact"><i className="fa-solid fa-envelope"></i>Contact Me</a></li>
           </ul>

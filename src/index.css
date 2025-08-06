@@ -158,10 +158,21 @@ header nav ul li a i {
   transition: 0.4s;
 }
 
+/* --- PERUBAHAN & TAMBAHAN DI SINI --- */
 header nav ul li a:hover i,
 header nav ul li a.active i {
-  color: var(--themeColor);
+  color: var(--themeColor); /* Warna hijau untuk ikon aktif/hover */
 }
+
+/* Tambahkan ini untuk mengubah warna teks juga */
+header nav ul li a.active {
+    color: var(--whiteColor);
+}
+
+body.dark header nav ul li a.active {
+    color: #fff;
+}
+/* --- AKHIR PERUBAHAN --- */
 
 /* Mobile nav toggle */
 #MenuBtn {
@@ -491,8 +502,8 @@ section {
 }
 .skill-list-container {
     margin-top: 35px;
-    display: flex;
-    flex-direction: column;
+    display: grid; /* Menggunakan grid untuk responsif */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Kolom otomatis */
     gap: 20px;
 }
 
@@ -502,7 +513,14 @@ section {
     border-radius: 8px;
     box-shadow: 0 4px 10px var(--boxShadowColor);
     border-left: 5px solid var(--themeColor);
+    transition: border-left-color 0.3s ease; /* Transisi untuk efek hover */
 }
+
+/* --- EFEK HOVER BARU --- */
+.skill-category:hover {
+    border-left-color: var(--themeColor2); /* Warna pink saat hover */
+}
+/* --- AKHIR EFEK HOVER --- */
 
 .skill-category h3 {
     color: var(--headingColor);
