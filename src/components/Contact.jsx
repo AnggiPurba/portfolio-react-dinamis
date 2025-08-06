@@ -22,7 +22,7 @@ const Contact = ({ data, onNewMessage }) => {
         date: new Date().toISOString()
     });
 
-    alert('Pesan berhasil dikirim!');
+
     setFormData({ name: '', email: '', subject: '', msg: '' });
   };
 
