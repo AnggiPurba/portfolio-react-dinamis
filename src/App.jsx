@@ -22,7 +22,6 @@ function App() {
 
   const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || "admin";
 
-  // Mengambil data dari Sanity saat aplikasi pertama kali dimuat
   useEffect(() => {
     const query = `{
       "profile": *[_type == "profile"][0],
@@ -61,7 +60,6 @@ function App() {
     setIsAdmin(false);
   };
 
-  // FUNGSI UPDATE BARU: Menyimpan data dan file ke Sanity
   const handleUpdate = async (updatedData) => {
     try {
       alert("Menyimpan perubahan ke server... Ini mungkin memakan waktu beberapa saat jika ada file baru.");
@@ -82,22 +80,17 @@ function App() {
       dataToPatch.profile.cv = await uploadAssetIfNeeded(dataToPatch.profile.cv, 'file', 'CV_Dwi_Purba.pdf');
 
       if (dataToPatch.portfolio.items) {
-        for (const item of dataToPatch.portfolio.items) {
+        await Promise.all(dataToPatch.portfolio.items.map(async (item) => {
           item.image = await uploadAssetIfNeeded(item.image, 'image');
           item.downloadableImage = await uploadAssetIfNeeded(item.downloadableImage, 'file');
-        }
+        }));
       }
 
       const patches = Object.keys(dataToPatch).map(sectionKey => {
         const sectionData = dataToPatch[sectionKey];
         if (sectionData && sectionData._id) {
           const {_id, _createdAt, _rev, _updatedAt, _type, ...restOfData} = sectionData;
-          return {
-            patch: {
-              id: _id,
-              set: restOfData
-            }
-          };
+          return { patch: { id: _id, set: restOfData } };
         }
         return null;
       }).filter(Boolean);
@@ -115,22 +108,17 @@ function App() {
     }
   };
 
-  // FUNGSI BARU UNTUK MENYIMPAN PESAN KE SANITY
   const handleNewMessage = (message) => {
     const contactDocId = data.contact._id;
     
-    // Menambahkan pesan baru ke dalam array 'messages' di dokumen contact
     sanityClient
       .patch(contactDocId)
       .setIfMissing({messages: []})
       .append('messages', [message])
       .commit({autoGenerateArrayKeys: true})
-      .then(() => {
+      .then((updatedDoc) => {
         alert('Pesan Anda berhasil terkirim!');
-        // Refresh data untuk menampilkan pesan baru di admin dashboard jika perlu
-        sanityClient.fetch(`*[_id == "${contactDocId}"][0]`).then(newContactData => {
-          setData(prevData => ({...prevData, contact: newContactData}));
-        });
+        setData(prevData => ({...prevData, contact: updatedDoc}));
       })
       .catch(err => {
         console.error('Gagal mengirim pesan:', err);
@@ -138,6 +126,7 @@ function App() {
       });
   };
 
+  // --- PERBAIKAN: Menggunakan messageKey untuk menghapus ---
   const handleDeleteMessage = (messageKey) => {
     if (window.confirm("Apakah Anda yakin ingin menghapus pesan ini?")) {
       const contactDocId = data.contact._id;
@@ -146,9 +135,10 @@ function App() {
         .patch(contactDocId)
         .unset([`messages[_key=="${messageKey}"]`])
         .commit()
-        .then(newContactData => {
+        .then(updatedDoc => {
            alert('Pesan berhasil dihapus.');
-           setData(prevData => ({...prevData, contact: newContactData}));
+           // Perbarui state lokal agar UI langsung update
+           setData(prevData => ({...prevData, contact: updatedDoc}));
         })
         .catch(err => {
             console.error('Gagal menghapus pesan:', err);
@@ -156,6 +146,7 @@ function App() {
         });
     }
   };
+  // --- AKHIR PERBAIKAN ---
 
   if (!data) {
     return <div style={{textAlign: 'center', paddingTop: '50px'}}>Loading Portfolio from Sanity...</div>;

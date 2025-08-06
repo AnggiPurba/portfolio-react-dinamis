@@ -252,9 +252,9 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
           <textarea style={textareaStyle} name="about.sub_para" value={data.about.sub_para} onChange={handleTextChange} /><br/>
            {/* --- INPUT BARU UNTUK FOTO "ABOUT ME" --- */}
           <label>About Me Photo:</label><br/>
-          {data.about.profileImage2 && 
+          {data.about.profileImage2?.asset && 
               <div style={{marginBottom: '10px'}}>
-                  <img src={data.about.profileImage2} alt="about me preview" style={{width: '150px', height: 'auto', border: '1px solid #ccc'}}/>
+                  <img src={urlFor(data.about.profileImage2).width(150).url()} alt="about me preview" style={{width: '150px', height: 'auto', border: '1px solid #ccc'}}/>
                   <p style={{fontSize: '12px', color: '#888'}}>Foto saat ini sudah ada. Pilih file baru untuk mengganti.</p>
               </div>
           }
@@ -421,7 +421,7 @@ const AdminDashboard = ({ currentData, onUpdate, onLogout, theme, toggleTheme, o
                               <td style={{padding: '8px', border: `1px solid ${isDark ? '#555' : '#ddd'}`}}>{msg.email}</td>
                               <td style={{padding: '8px', border: `1px solid ${isDark ? '#555' : '#ddd'}`}}>{msg.subject}</td>
                               <td style={{padding: '8px', border: `1px solid ${isDark ? '#555' : '#ddd'}`}}>{msg.msg}</td>
-                              <td style={{padding: '8px', border: `1px solid ${isDark ? '#555' : '#ddd'}`}}><button style={deleteButtonStyle} onClick={() => onDeleteMessage(index)}>Delete</button></td>
+                              <td style={{padding: '8px', border: `1px solid ${isDark ? '#555' : '#ddd'}`}}><button style={deleteButtonStyle} onClick={() => onDeleteMessage(msg._key)}>Delete</button></td>
                           </tr>
                       )) : (
                           <tr><td colSpan="6" style={{padding: '12px', textAlign: 'center'}}>No messages found.</td></tr>
