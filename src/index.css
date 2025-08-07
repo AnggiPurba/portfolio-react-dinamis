@@ -5,463 +5,522 @@
 
 /* Variabel Warna untuk Light & Dark Mode */
 :root {
-  --sideBGColor: #040b14;
-  --themeColor: #00a78e;
-  --themeColor2: rgba(212, 0, 119, 0.7);
-  --iconBGColor: #2c2f3f;
-  --textColor: #353535;
-  --headingColor: #000000;
-  --bgColor: #f7f7f7;
-  --whiteColor: #ffffff;
-  --lightGray: lightgray;
-  --borderColor: lightgray;
-  --boxShadowColor: rgba(0, 0, 0, 0.1);
+ --sideBGColor: #040b14;
+ --themeColor: #00a78e;
+ --themeColor2: rgba(212, 0, 119, 0.7);
+ --iconBGColor: #2c2f3f;
+ --textColor: #353535;
+ --headingColor: #000000;
+ --bgColor: #f7f7f7;
+ --whiteColor: #ffffff;
+ --lightGray: lightgray;
+ --borderColor: lightgray;
+ --boxShadowColor: rgba(0, 0, 0, 0.1);
 }
 
 body.dark {
-  --sideBGColor: #121212;
-  --themeColor: #00a78e;
-  --themeColor2: rgba(212, 0, 119, 0.8);
-  --iconBGColor: #333333;
-  --textColor: #cccccc;
-  --headingColor: #ffffff;
-  --bgColor: #1a1a1a;
-  --whiteColor: #2e2e2e;
-  --lightGray: #aaaaaa;
-  --borderColor: #444444;
-  --boxShadowColor: rgba(255, 255, 255, 0.05);
+ --sideBGColor: #121212;
+ --themeColor: #00a78e;
+ --themeColor2: rgba(212, 0, 119, 0.8);
+ --iconBGColor: #333333;
+ --textColor: #cccccc;
+ --headingColor: #ffffff;
+ --bgColor: #1a1a1a;
+ --whiteColor: #2e2e2e;
+ --lightGray: #aaaaaa;
+ --borderColor: #444444;
+ --boxShadowColor: rgba(255, 255, 255, 0.05);
 }
 
 /* CSS Reset */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-  scroll-behavior: smooth;
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: "Poppins", sans-serif;
+ scroll-behavior: smooth;
 }
 
 /* === Pengaturan Layout Utama === */
 .page-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin-left: 300px;
-  background-color: var(--bgColor);
-  transition: margin-left 0.4s;
+ display: flex;
+ flex-direction: column;
+ min-height: 100vh;
+ margin-left: 300px;
+ background-color: var(--bgColor);
+ transition: margin-left 0.4s;
 }
 main {
-  flex: 1;
+ flex: 1; 
 }
 
 @media only screen and (max-width: 1050px) {
-  .page-container {
-    margin-left: 0;
-  }
+ .page-container {
+  margin-left: 0;
+ }
 }
 /* === Akhir Pengaturan Layout Utama === */
 
+
 /* === Header Start === */
 header {
-  height: 100vh;
-  width: 300px;
-  padding: 15px 30px;
-  background-color: var(--sideBGColor);
-  overflow-y: auto;
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  transition: 0.4s;
-  z-index: 99;
+ height: 100vh;
+ width: 300px;
+ padding: 15px 30px;
+ background-color: var(--sideBGColor);
+ overflow-y: auto;
+ position: fixed;
+ left: 0;
+ top: 0;
+ bottom: 0;
+ transition: 0.4s;
+ z-index: 99;
 }
 
 header .profile {
-  text-align: center;
-  margin: 10px 0;
+ text-align: center;
+ margin: 10px 0;
 }
-
 /* Ukuran foto di header diperbarui */
 header .profile img {
-  width: 120px;      /* dikurangi dari 150px */
-  max-width: 80%;
-  height: auto;
-  border-radius: 50%;
-  border: 10px solid var(--iconBGColor);
+ width: 120px;     /* dari 150px ke 120px */
+ max-width: 80%;
+ height: auto;
+ border-radius: 50%;
+ border: 10px solid var(--iconBGColor);
 }
 
 header .profile h1 {
-  color: #ffffff !important;
-}
-
-header .profile .btn-color-1 {
-  margin: 0;
-  margin-bottom: 20px;    /* jarak bawah tombol */
-  font-weight: 600;
-  transition: all 300ms ease;
-  padding: 1rem;
-  width: 8rem;
-  border-radius: 2rem;
-  color: #fff;
-  background-color: var(--themeColor);
-  border: none;
-  cursor: pointer;
-}
-header .profile .btn-color-1:hover {
-  background-color: var(--themeColor2);
-  color: var(--whiteColor);
+ color: #ffffff !important; 
 }
 
 header .profile .social-icons {
-  margin-bottom: 30px;
+ margin-bottom: 30px;
 }
 
 header .profile .social-icons a {
-  display: inline-block;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 37px;
-  background-color: var(--iconBGColor);
-  color: #fff;
-  font-size: 18px;
-  margin: 1.5px;
-  transition: 0.4s;
+ display: inline-block;
+ width: 36px;
+ height: 36px;
+ border-radius: 50%;
+ text-align: center;
+ line-height: 37px;
+ background-color: var(--iconBGColor);
+ color: #fff;
+ font-size: 18px;
+ margin: 1.5px;
+ transition: 0.4s;
 }
+
 header .profile .social-icons a:hover {
-  background-color: var(--themeColor2);
+ background-color: var(--themeColor2);
+}
+
+.btn-color-1 {
+ margin: 0; 
+ font-weight: 600;
+ transition: all 300ms ease;
+ padding: 1rem;
+ width: 8rem;
+ border-radius: 2rem;
+ color: #fff;
+ background-color: var(--themeColor);
+ border: none;
+ cursor: pointer;
+}
+
+.btn-color-1:hover {
+ background-color: var(--themeColor2);
+ color: var(--whiteColor);
 }
 
 /* Navbar */
 header nav {
-  margin-top: 30px;     /* diperbesar dari 5px */
+ margin-top: 30px;
 }
 header nav ul li {
-  list-style: none;
-  text-align: left;
+ list-style: none;
+ text-align: left;
 }
 
 header nav ul li a {
-  display: inline-block;
-  text-decoration: none;
-  padding: 7px 10px;
-  margin: 7px 0;
-  color: var(--lightGray);
-  font-weight: 400;
-  font-size: 15px;
-  letter-spacing: 0.6px;
+ display: inline-block;
+ text-decoration: none;
+ padding: 7px 10px;
+ margin: 7px 0;
+ color: var(--lightGray);
+ font-weight: 400;
+ font-size: 15px;
+ letter-spacing: 0.6px;
 }
 
 header nav ul li a i {
-  margin-right: 10px;
-  font-size: 20px;
-  transition: 0.4s;
+ margin-right: 10px;
+ font-size: 20px;
+ transition: 0.4s;
 }
 
-/* Icon hover & active */
-header nav ul li a:hover i {
-  color: var(--themeColor2);
+/* --- PERUBAHAN & TAMBAHAN DI SINI --- */
+header nav ul li a:hover i{
+  color: var(--themeColor2);
 }
 header nav ul li a.active i {
-  color: var(--themeColor);
+ color: var(--themeColor); /* Warna hijau untuk ikon aktif/hover */
 }
+
+/* Tambahkan ini untuk mengubah warna teks juga */
 header nav ul li a.active {
   color: var(--whiteColor);
 }
+
 body.dark header nav ul li a.active {
   color: #fff;
 }
+/* --- AKHIR PERUBAHAN --- */
 
 /* Mobile nav toggle */
 #MenuBtn {
-  position: fixed;
-  top: 25px;
-  right: 25px;
-  font-size: 20px;
-  width: 40px;
-  height: 40px;
-  color: #fff;
-  background-color: var(--themeColor);
-  text-align: center;
-  line-height: 42px;
-  border-radius: 50%;
-  box-shadow: 0 0 20px var(--boxShadowColor);
-  display: none;
-  z-index: 999;
-  cursor: pointer;
+ position: fixed;
+ top: 25px;
+ right: 25px;
+ font-size: 20px;
+ width: 40px;
+ height: 40px;
+ color: #fff;
+ background-color: var(--themeColor);
+ text-align: center;
+ line-height: 42px;
+ border-radius: 50%;
+ box-shadow: 0 0 20px var(--boxShadowColor);
+ display: none;
+ z-index: 999;
+ cursor: pointer;
 }
 
 /* Mobile view */
 @media only screen and (max-width: 1050px) {
-  header {
-    left: -300px;
-  }
-  #MenuBtn {
-    display: block;
-  }
+ header {
+  left: -300px;
+ }
+ #MenuBtn {
+  display: block;
+ }
 }
 
 /* Header toggle */
 .mobile-nav-active header {
-  left: 0;
+ left: 0;
 }
 /* === Header END === */
 
+
 /* == Home section == */
 #home {
-  height: 100vh;
-  width: 100%;
-  background-image: url(./assets/hero-bg.jpg);
-  background-size: cover;
-  background-attachment: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 70px;
-  position: relative;
+ height: 100vh;
+ width: 100%;
+ background-image: url(./assets/hero-bg.jpg);
+ background-size: cover;
+ background-attachment: fixed;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ padding: 70px;
+ position: relative;
 }
+
 #home::before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.431);
-  position: absolute;
-  top: 0;
-  left: 0;
+ content: "";
+ width: 100%;
+ height: 100%;
+ background-color: rgba(0, 0, 0, 0.431);
+ position: absolute;
+ top: 0;
+ left: 0;
 }
+
 #home .home-row {
-  z-index: 1;
+ z-index: 1;
 }
+
 #home .home-row h1 {
-  font-size: 60px;
-  color: #fff;
-  font-weight: 600;
-  letter-spacing: -1px;
-  margin-bottom: 10px;
-  line-height: 70px;
+ font-size: 60px;
+ color: #fff;
+ font-weight: 600;
+ letter-spacing: -1px;
+ margin-bottom: 10px;
+ line-height: 70px;
 }
+
 #home .home-row h1 span {
-  color: var(--themeColor2);
+ color: var(--themeColor2);
 }
+
 #home .home-row p {
-  color: whitesmoke;
-  font-size: 30px;
-  font-weight: 500;
+ color: whitesmoke;
+ font-size: 30px;
+ font-weight: 500;
 }
+
 #home .home-row p span {
-  border-bottom: 4px solid var(--themeColor);
+ border-bottom: 4px solid var(--themeColor);
 }
+
 /* Mobile View */
 @media only screen and (max-width: 670px) {
-  #home {
-    padding: 30px;
-  }
-  #home .home-row h1 {
-    font-size: 35px;
-    line-height: 50px;
-  }
-  #home .home-row p {
-    font-size: 20px;
-  }
+ #home {
+  padding: 30px;
+ }
+ #home .home-row h1 {
+  font-size: 35px;
+  line-height: 50px;
+ }
+ #home .home-row p {
+  font-size: 20px;
+ }
 }
 
 /* General section styling */
 section {
-  padding: 70px 30px;
-}
-.sub-heading {
-  color: var(--headingColor);
-  font-size: 30px;
-  margin-bottom: 10px;
-}
-.divider {
-  width: 80px;
-  height: 4px;
-  background-color: var(--themeColor);
-  border-radius: 3px;
+ padding: 70px 30px;
 }
 
-/* === About Section (Info kiri, foto kanan) === */
-#about {
-  background-color: var(--whiteColor);
+.sub-heading {
+ color: var(--headingColor);
+ font-size: 30px;
+ margin-bottom: 10px;
 }
-#about .about-col {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 20px;
-  margin-top: 25px;
+
+.divider {
+ width: 80px;
+ height: 4px;
+ background-color: var(--themeColor);
+ border-radius: 3px;
 }
-#about .about-col .info-col {
-  order: 1;
-  flex: 2 1 400px;
-}
-#about .about-col .img-col {
-  order: 2;
-  flex: 1 1 300px;
-  text-align: center;
-}
-#about .about-col .img-col img {
-  width: 100%;
-  max-width: 350px;
-}
-@media (max-width: 670px) {
-  #about .about-col {
-    flex-direction: column-reverse;
-  }
-}
-/* Judul & paragraf */
+
+/* --- TAMBAHKAN KODE DI BAWAH INI --- */
 .subsection-heading-container {
   margin-top: 35px;
   margin-bottom: 20px;
 }
+
 .subsection-heading-container h2 {
   color: var(--headingColor);
   font-size: 25px;
   margin-bottom: 10px;
 }
+
 .divider.pink {
-  background-color: var(--themeColor2);
+  background-color: var(--themeColor2); /* Warna pink */
 }
+
 .sub-para {
-  color: var(--textColor);
-  font-size: 15px;
-  letter-spacing: 0.4px;
-  font-weight: 500;
-  margin-top: 15px;
+ color: var(--textColor);
+ font-size: 15px;
+ letter-spacing: 0.4px;
+ font-weight: 500;
+ margin-top: 15px;
 }
 
-/* --- ACCORDION: Personal Information --- */
-#personal-info details {
-  background-color: var(--whiteColor);
-  border: 1px solid var(--borderColor);
-  border-radius: 6px;
-  margin-bottom: 10px;
-  overflow: hidden;
-  transition: max-height 0.3s ease, box-shadow 0.3s ease;
-  max-height: 42px; /* cukup untuk satu baris summary */
-  box-shadow: 0 0 0 transparent;
+/* about section */
+#about {
+ background-color: var(--whiteColor);
 }
-#personal-info details:hover {
-  max-height: 200px; /* perbesar agar multiline muncul */
-  box-shadow: 0 2px 8px var(--boxShadowColor);
+#about .about-col {
+ display: flex;
+ gap: 20px;
+ margin-top: 25px;
+ flex-wrap: wrap;
 }
-#personal-info summary {
+@media (max-width: 670px) {
+ #about .about-col {
+  flex-direction: column-reverse;
+ }
+}
+
+
+#about .about-col .img-col {
+  order: 2;  
+ flex: 1 1 300px;
+ text-align: center;
+}
+
+#about .about-col .img-col img {
+ width: 100%;
+ max-width: 350px;
+}
+
+#about .about-col .info-col {
+  order: 1; 
+ flex: 2 1 400px;
+}
+
+#about .about-col .info-col h2 {
+ color: var(--themeColor);
+ font-weight: 700;
+ font-size: 35px;
+}
+
+#about .about-col .info-col p {
+ color: var(--textColor);
+ font-size: 15px;
+ font-style: italic;
+}
+
+#about .about-col .info-col .icon-list-col {
+ display: flex;
+ margin-top: 20px;
+ gap: 40px;
+ flex-wrap: wrap;
+}
+
+/* === BLOK PERUBAHAN DIMULAI DI SINI === */
+/* --- PERUBAHAN & TAMBAHAN UNTUK INFORMASI PRIBADI --- */
+
+/* Gaya dasar untuk setiap item di daftar informasi pribadi */
+#about .about-col .info-col .icon-list-col .icon-list ul li {
   list-style: none;
-  cursor: default;
-  padding: 10px 15px;
-  display: block;
-  font-size: 15px;
+  margin: 10px 0;
+  padding: 12px; /* Menambah padding untuk area hover yang lebih nyaman */
+  border-radius: 8px; /* Membuat sudut lebih halus */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transisi untuk efek hover */
 }
-#personal-info summary::-webkit-details-marker {
-  display: none;
+
+/* Efek "Accordion Hover" yang Anda minta */
+#about .about-col .info-col .icon-list-col .icon-list ul li:hover {
+  background-color: var(--bgColor); /* Warna latar berubah saat di-hover */
+  transform: translateX(5px); /* Item sedikit bergeser ke kanan, memberikan efek kedalaman */
 }
-#personal-info summary .label {
-  font-weight: 600;
-  margin-right: 6px;
+
+/* Ikon di sebelah kiri */
+#about .about-col .info-col .icon-list-col .icon-list ul li i {
+  color: var(--themeColor2);
+  margin-right: 8px;
+}
+
+/* Label (cth: "LinkedIn:") */
+#about .about-col .info-col .icon-list-col .icon-list ul li strong {
   color: var(--headingColor);
+  font-weight: 600;
+  margin-right: 4px;
 }
-#personal-info details > *:not(summary) {
-  padding: 5px 15px 10px;
-  font-size: 14px;
+
+/* Konten (link/teks) */
+#about .about-col .info-col .icon-list-col .icon-list ul li span {
   color: var(--textColor);
+  font-weight: 500;
+    /* INI KUNCINYA: Memaksa link yang panjang untuk pindah baris agar tidak merusak layout */
+  word-break: break-all;
 }
+/* --- AKHIR PERUBAHAN --- */
+/* === BLOK PERUBAHAN BERAKHIR DI SINI === */
 
-/* Responsif: pada layar kecil, matikan accordion dan wrap URL */
-@media (max-width: 800px) {
-  #personal-info details {
-    max-height: none;
-    margin-bottom: 12px;
-  }
-  #personal-info summary {
-    white-space: normal;
-    word-break: break-word;
-  }
-}
-
-/* === Resume Section === */
+/* Resume section */
 #resume {
-  background-color: var(--whiteColor);
+ background-color: var(--whiteColor);
 }
+
 #resume .resume-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  margin-top: 35px;
-  flex-wrap: wrap;
+ display: flex;
+ justify-content: space-between;
+ gap: 20px;
+ margin-top: 35px;
+ flex-wrap: wrap;
 }
+
 #resume .resume-row .resume-cols {
-  flex-basis: 48%;
-  min-width: 300px;
+ flex-basis: 48%;
+ min-width: 300px;
 }
+
 #resume .resume-row .resume-cols h2 {
-  color: var(--headingColor);
-  font-weight: 600;
-  font-size: 25px;
-  margin: 15px 0;
+ color: var(--headingColor);
+ font-weight: 600;
+ font-size: 25px;
+ margin: 15px 0;
 }
+
+/* --- PERBAIKAN TIMELINE --- */
 .timeline-wrapper {
-  position: relative;
-  padding-top: 10px;
-  border-left: 2px solid var(--themeColor2);
+ position: relative;
+ padding-top: 10px;
+ border-left: 2px solid var(--themeColor2);
 }
-#resume .resume-row .resume-cols .my-info,
+
+#resume .resume-row .resume-cols .my-info {
+ padding-left: 30px;
+ margin-bottom: 20px;
+ position: relative;
+}
+
 #resume .resume-row .resume-cols .my-edu,
 #resume .resume-row .resume-cols .pro-exp {
-  padding: 0 0 20px 30px;
-  margin: 0;
-  position: relative;
+ padding: 0 0 20px 30px;
+ margin: 0;
+ position: relative;
 }
+
 #resume .resume-row .resume-cols .my-info::before,
 #resume .resume-row .resume-cols .my-edu::before,
 #resume .resume-row .resume-cols .pro-exp::before {
-  content: "";
-  position: absolute;
-  top: 5px;
-  left: -10px;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  border: 2px solid var(--themeColor2);
-  background-color: var(--bgColor);
-  z-index: 1;
+ content: "";
+ position: absolute;
+ top: 5px;
+ left: -10px;
+ width: 15px;
+ height: 15px;
+ border-radius: 50%;
+ border: 2px solid var(--themeColor2);
+ background-color: var(--bgColor);
+ z-index: 1;
 }
+
 .timeline-wrapper > div:last-child {
-  padding-bottom: 0;
+ padding-bottom: 0;
 }
+
 .timeline-wrapper > div:first-child::before {
-  top: 0px;
+ top: 0px; 
 }
+/* --- AKHIR PERBAIKAN TIMELINE --- */
+
 #resume .resume-row .resume-cols h3 {
-  color: var(--headingColor);
-  font-size: 17px;
-  font-weight: 600;
-  text-transform: uppercase;
+ color: var(--headingColor);
+ font-size: 17px;
+ font-weight: 600;
+ text-transform: uppercase;
 }
+
 #resume .resume-row .resume-cols .my-info p,
-#resume .resume-row .resume-cols .my-edu p,
+#resume .resume-row .resume-cols .my-edu p {
+ color: var(--textColor);
+ font-weight: 500;
+ font-style: italic;
+ margin: 10px 0;
+}
+
 #resume .resume-row .resume-cols .pro-exp p {
   color: var(--textColor);
   font-weight: 500;
   font-style: italic;
   margin: 5px 0;
 }
+
 #resume .resume-row .resume-cols .sp-box {
-  padding: 4px 22px;
-  background-color: var(--themeColor);
-  color: #ffffff;
-  border-radius: 3px;
-  font-size: 14px;
-  font-weight: 600;
-  margin: 5px 0;
-  display: inline-block;
+ padding: 4px 22px;
+ background-color: var(--themeColor);
+ color: #ffffff;
+ border-radius: 3px;
+ font-size: 14px;
+ font-weight: 600;
+ margin: 5px 0;
+ display: inline-block;
 }
+
 #resume .resume-row .resume-cols ul {
   list-style: none;
   padding-left: 5px;
 }
+
 #resume .resume-row .resume-cols ul li {
   margin: 10px 0;
   color: var(--textColor);
@@ -469,9 +528,9 @@ section {
   font-weight: 500;
 }
 
-/* === Skills Section === */
+/* Skill section */
 #skill {
-  background-color: var(--bgColor);
+ background-color: var(--bgColor);
 }
 .skill-list-container {
   margin-top: 35px;
@@ -479,92 +538,108 @@ section {
   flex-direction: column;
   gap: 20px;
 }
+
 .skill-category {
   background-color: var(--whiteColor);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 10px var(--boxShadowColor);
   border-left: 5px solid var(--themeColor);
-  transition: border-left-color 0.3s ease;
+  transition: border-left-color 0.3s ease; /* Transisi untuk efek hover */
 }
+
+/* --- EFEK HOVER BARU --- */
 .skill-category:hover {
-  border-left-color: var(--themeColor2);
+  border-left-color: var(--themeColor2); /* Warna pink saat hover */
 }
+/* --- AKHIR EFEK HOVER --- */
+
 .skill-category h3 {
   color: var(--headingColor);
   font-weight: 600;
   margin-bottom: 8px;
 }
+
 .skill-category p {
   color: var(--textColor);
   line-height: 1.7;
 }
 
-/* === Portfolio Section === */
+
+/* Portfolio section */
 #portfolio {
-  background-color: var(--whiteColor);
+ background-color: var(--whiteColor);
 }
 #portfolio .port-row {
-  margin-top: 50px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 35px;
+ margin-top: 50px;
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+ grid-gap: 35px;
 }
+
 #portfolio h2 {
-  color: var(--headingColor);
-  margin-top: 20px;
-  margin-bottom: 20px;
+ color: var(--headingColor);
+ margin-top: 20px;
+ margin-bottom: 20px;
 }
+
 #portfolio .port-row .port-item {
-  position: relative;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 0 20px var(--boxShadowColor);
+ position: relative;
+ border-radius: 10px;
+ overflow: hidden;
+ box-shadow: 0 0 20px var(--boxShadowColor);
 }
+
 #portfolio .port-row .port-item .port-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-  display: block;
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ border-radius: 10px;
+ display: block;
 }
+
 #portfolio .port-row .port-item .port-info {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--themeColor2);
-  padding: 15px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  transform: scale(0);
-  transition: 0.4s;
-  border-radius: 10px;
-  visibility: hidden;
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background-color: var(--themeColor2);
+ padding: 15px;
+ text-align: center;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ gap: 10px;
+ transform: scale(0);
+ transition: 0.4s;
+ border-radius: 10px;
+ visibility: hidden;
 }
+
 #portfolio .port-row .port-item:hover .port-info {
-  transform: scale(1);
-  visibility: visible;
+ transform: scale(1);
+ visibility: visible;
 }
+
 #portfolio .port-row .port-item .port-info h4 {
-  color: #fff;
-  font-size: 25px;
-  font-weight: 600;
+ color: #fff;
+ font-size: 25px;
+ font-weight: 600;
 }
+
 #portfolio .port-row .port-item .port-info h4 + p {
-  color: #fff;
-  font-size: 14px;
+ color: #fff;
+ font-size: 14px;
 }
+
 .port-links {
   display: flex;
   gap: 10px;
   margin-top: 10px;
 }
+
 .port-link-btn {
   text-decoration: none;
   background-color: #fff;
@@ -578,128 +653,138 @@ section {
   gap: 5px;
   transition: 0.3s;
 }
+
 .port-link-btn:hover {
   background-color: var(--sideBGColor);
   color: #fff;
 }
 
-/* === Contact Section === */
+/* Contact section */
 #contact {
   background-color: var(--bgColor);
 }
 #contact .contact-row {
-  margin-top: 50px;
-  display: flex;
-  gap: 20px;
-  width: 100%;
-  flex-wrap: wrap;
+ margin-top: 50px;
+ display: flex;
+ gap: 20px;
+ width: 100%;
+ flex-wrap: wrap;
 }
+
 #contact .contact-row .contact-left {
-  flex: 1 1 300px;
-  background-color: var(--whiteColor);
-  box-shadow: 0 0 20px var(--boxShadowColor);
-  border-radius: 4px;
-  padding: 30px;
+ flex: 1 1 300px;
+ background-color: var(--whiteColor);
+ box-shadow: 0 0 20px var(--boxShadowColor);
+ border-radius: 4px;
+ padding: 30px;
 }
+
 #contact .contact-row .contact-left .icon-box {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  margin: 30px 0;
+ display: flex;
+ gap: 15px;
+ align-items: center;
+ margin: 30px 0;
 }
+
 #contact .contact-row .contact-left .icon-box .icon i {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 2px solid var(--themeColor);
-  text-align: center;
-  line-height: 47px;
-  font-size: 20px;
-  color: var(--themeColor);
-  transition: 0.5s;
+ width: 50px;
+ height: 50px;
+ border-radius: 50%;
+ border: 2px solid var(--themeColor);
+ text-align: center;
+ line-height: 47px;
+ font-size: 20px;
+ color: var(--themeColor);
+ transition: 0.5s;
 }
+
 #contact .contact-row .contact-left .icon-box:hover .icon i {
-  background-color: var(--themeColor2);
-  color: #fff;
+ background-color: var(--themeColor2);
+ color: #fff;
 }
+
 #contact .contact-row .contact-left .icon-box .info h4 {
-  font-size: 20px;
-  color: var(--headingColor);
+ font-size: 20px;
+ color: var(--headingColor);
 }
+
 #contact .contact-row .contact-left .icon-box .info h4 + p {
-  color: var(--textColor);
-  font-size: 15px;
+ color: var(--textColor);
+ font-size: 15px;
 }
+
 #contact .contact-row .contact-right {
-  flex: 2 1 400px;
-  background-color: var(--whiteColor);
-  box-shadow: 0 0 20px var(--boxShadowColor);
-  border-radius: 4px;
-  padding: 30px;
+ flex: 2 1 400px;
+ background-color: var(--whiteColor);
+ box-shadow: 0 0 20px var(--boxShadowColor);
+ border-radius: 4px;
+ padding: 30px;
 }
+
 #contact .contact-row .contact-right form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
 }
+
 #contact .contact-row .contact-right form input,
 #contact .contact-row .contact-right form textarea {
-  display: block;
-  width: 100%;
-  margin: 5px 0;
-  font-size: 15px;
-  padding: 10px 20px;
-  border: 2px solid var(--borderColor);
-  background: transparent;
-  color: var(--textColor);
-  border-radius: 2px;
-  outline: none;
-  resize: none;
-  transition: 0.5s;
+ display: block;
+ width: 100%;
+ margin: 5px 0;
+ font-size: 15px;
+ padding: 10px 20px;
+ border: 2px solid var(--borderColor);
+ background: transparent;
+ color: var(--textColor);
+ border-radius: 2px;
+ outline: none;
+ resize: none;
+ transition: 0.5s;
 }
 #contact .contact-row .contact-right form input:focus,
 #contact .contact-row .contact-right form textarea:focus {
-  border: 2px solid var(--themeColor);
+ border: 2px solid var(--themeColor);
 }
 #contact .contact-row .contact-right form input[type="submit"] {
-  background-color: var(--themeColor);
-  color: #fff;
-  border: 2px solid var(--themeColor);
-  cursor: pointer;
+ background-color: var(--themeColor);
+ color: #fff;
+ border: 2px solid var(--themeColor);
+ cursor: pointer;
 }
 
 /* Theme Toggle Button */
 .theme-toggle-button {
-  position: fixed;
-  top: 25px;
-  left: 25px;
-  font-size: 20px;
-  width: 40px;
-  height: 40px;
-  color: #fff;
-  background-color: var(--iconBGColor);
-  border: 2px solid var(--themeColor2);
-  text-align: center;
-  line-height: 38px;
-  border-radius: 50%;
-  z-index: 100;
-  cursor: pointer;
-  transition: 0.3s;
+ position: fixed;
+ top: 25px;
+ left: 25px;
+ font-size: 20px;
+ width: 40px;
+ height: 40px;
+ color: #fff;
+ background-color: var(--iconBGColor);
+ border: 2px solid var(--themeColor2);
+ text-align: center;
+ line-height: 38px;
+ border-radius: 50%;
+ z-index: 100;
+ cursor: pointer;
+ transition: 0.3s;
 }
 .theme-toggle-button:hover {
-  background-color: var(--themeColor2);
+ background-color: var(--themeColor2);
 }
 @media only screen and (max-width: 1050px) {
-  .theme-toggle-button {
-    left: auto;
-    right: 80px;
-  }
+ .theme-toggle-button {
+  left: auto;
+  right: 80px;
+ }
 }
 
 /* === Footer === */
 .footer {
-  background-color: var(--sideBGColor);
-  color: var(--lightGray);
-  padding: 20px 30px;
-  text-align: center;
+ background-color: var(--sideBGColor);
+ color: var(--lightGray);
+ padding: 20px 30px;
+ text-align: center;
 }
