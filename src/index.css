@@ -82,11 +82,16 @@ header .profile {
   margin: 10px 0;
 }
 
+/* Ukuran foto di header diperbarui */
 header .profile img {
-  width: 120px;          /* semula 150px */
-  max-width: 80%;        /* responsif */
+  width: 120px;          /* dari 150px ke 120px */
+  max-width: 80%;
   height: auto;
+  border-radius: 50%;
+  border: 10px solid var(--iconBGColor);
 }
+
+
 
 header .profile h1 {
   color: #ffffff !important; 
