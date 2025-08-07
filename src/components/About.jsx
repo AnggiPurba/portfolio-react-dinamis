@@ -12,9 +12,10 @@ const About = ({ data }) => {
 
   return (
     <section id="about">
-      <h1 className="sub-heading">{data?.heading}</h1>
-      <div className="divider"></div>
-      <p className="sub-para">{data?.sub_para}</p>
+      {/* Judul & paragraf tetap tampil */}
+      <SubSectionHeading title={data?.personal_info_title} />
+      <div className="divider pink"></div>
+      <p className="sub-para">{data?.personal_info_para}</p>
 
       <div className="about-col">
         <div className="img-col">
@@ -23,32 +24,38 @@ const About = ({ data }) => {
           )}
         </div>
         <div className="info-col">
-          <SubSectionHeading title={data?.personal_info_title} />
-          <p>{data?.personal_info_para}</p>
-          <div className="icon-list-col">
-            <div className="icon-list">
-              <ul>
-                {firstHalf.map((item, index) => (
-                  <li key={index}>
-                    <i className="fa-solid fa-angle-right"></i>
-                    <strong>{item.label}</strong>
-                    &nbsp;<span>{item.value}</span>
-                  </li>
-                ))}
-              </ul>
+          {/* Accordion murni CSS */}
+          <details className="accordion">
+            <summary>
+              Show Details
+              <span className="arrow"></span>
+            </summary>
+
+            <div className="icon-list-col">
+              <div className="icon-list">
+                <ul>
+                  {firstHalf.map((item, idx) => (
+                    <li key={idx}>
+                      <i className="fa-solid fa-angle-right"></i>
+                      <strong>{item.label}:</strong>&nbsp;
+                      <span>{item.value}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="icon-list">
+                <ul>
+                  {secondHalf.map((item, idx) => (
+                    <li key={idx}>
+                      <i className="fa-solid fa-angle-right"></i>
+                      <strong>{item.label}:</strong>&nbsp;
+                      <span>{item.value}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <div className="icon-list">
-              <ul>
-                {secondHalf.map((item, index) => (
-                  <li key={index}>
-                    <i className="fa-solid fa-angle-right"></i>
-                    <strong>{item.label}</strong>
-                    &nbsp;<span>{item.value}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          </details>
         </div>
       </div>
     </section>

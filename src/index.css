@@ -771,3 +771,70 @@ section {
   padding: 20px 30px;
   text-align: center;
 }
+
+/* Hide default marker */
+.accordion summary::-webkit-details-marker {
+  display: none;
+}
+.accordion summary::marker {
+  display: none;
+}
+
+/* Style container <details> */
+.accordion {
+  border: 1px solid var(--borderColor);
+  border-radius: 6px;
+  background: var(--whiteColor);
+  max-width: 600px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+/* Style <summary> sebagai header accordion */
+.accordion summary {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--headingColor);
+  background: var(--whiteColor);
+  transition: background 0.3s;
+}
+.accordion summary:hover {
+  background: var(--bgColor);
+}
+
+/* Panah custom */
+.accordion .arrow {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--textColor);
+  border-bottom: 2px solid var(--textColor);
+  transform: rotate(45deg);
+  transition: transform 0.3s;
+  margin-left: 8px;
+}
+
+/* Rotate panah saat open */
+.accordion[open] .arrow {
+  transform: rotate(-135deg);
+}
+
+/* Konten yang di-toggle */
+.accordion .info-list {
+  list-style: none;
+  padding: 0 20px 15px;
+  margin: 0;
+}
+.accordion .info-list li {
+  margin: 10px 0;
+  color: var(--textColor);
+}
+.accordion .info-list li strong {
+  color: var(--headingColor);
+}
