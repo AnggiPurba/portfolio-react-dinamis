@@ -30,7 +30,6 @@ const Resume = ({ data }) => {
    <h1 className="sub-heading">{data.heading}</h1>
    <div className="divider"></div>
    <p className="sub-para">{data.sub_para}</p>
-   
       <div className="resume-row">
         {/* Kolom PERTAMA di HTML: Berisi Education dan Summary */}
         <Parallax speed={-5}> {/* Efek paralaks untuk seluruh kolom ini */}

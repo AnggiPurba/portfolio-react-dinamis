@@ -284,7 +284,7 @@ body.dark header nav ul li a.active {
 
 /* General section styling */
 section {
-  padding: 70px 30px;
+padding: 50px 30px;
 }
 
 .sub-heading {
@@ -496,7 +496,7 @@ font-weight: 500;
   display: flex;
   justify-content: space-between;
   gap: 30px;
-  margin-top: 35px;
+  margin-top: 20px;
   flex-wrap: wrap; /* Ini yang membuatnya otomatis jadi 1 kolom di layar kecil */
 }
 
@@ -620,20 +620,27 @@ font-weight: 500;
     gap: 20px;
 }
 
+/* Ganti kode .skill-category Anda dengan ini */
 .skill-category {
-    background-color: var(--whiteColor);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px var(--boxShadowColor);
-    border-left: 5px solid var(--themeColor);
-    transition: border-left-color 0.3s ease; /* Transisi untuk efek hover */
+  background-color: var(--whiteColor);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px var(--boxShadowColor);
+  border-left: 5px solid var(--themeColor);
+    /* 1. Tambahkan transform dan box-shadow ke transisi agar animasinya halus */
+  transition: border-left-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* --- EFEK HOVER BARU --- */
+/* Ganti kode .skill-category:hover Anda dengan ini */
 .skill-category:hover {
-    border-left-color: var(--themeColor2); /* Warna pink saat hover */
+  border-left-color: var(--themeColor2); /* Efek lama yang Anda suka tetap ada */
+    
+    /* 2. Efek 'pop out' (naik sedikit) */
+    transform: translateY(-5px);
+
+    /* 3. Shadow baru berwarna pink */
+    box-shadow: 0 6px 15px var(--themeColor2);
 }
-/* --- AKHIR EFEK HOVER --- */
 
 .skill-category h3 {
     color: var(--headingColor);
