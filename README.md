@@ -53,15 +53,40 @@ Ini adalah website portofolio pribadi saya yang telah dibangun ulang menggunakan
 
 ---
 
+## ⚠️ License & Usage / Lisensi & Penggunaan
+
+### 🛑 English
+
+This project is protected under a **Personal License by Dwi Paranggi Purba**.
+
+- ✅ You may **view, read, and learn** from the code.
+- ❌ You may **NOT copy, reuse, deploy, or redistribute** any part of this project, especially not as your own portfolio or personal project.
+
+This repository is made public **only** to support integrations (e.g. Vercel, Sanity) and for personal debugging or preview purposes.
+
+All rights reserved © 2025 Dwi Paranggi Purba.
+
+### 🛑 Bahasa Indonesia
+
+Proyek ini dilindungi oleh **Lisensi Pribadi atas nama Dwi Paranggi Purba**.
+
+- ✅ Anda diperbolehkan untuk **melihat dan mempelajari** kode ini.
+- ❌ Anda **tidak diizinkan** untuk menyalin, menggunakan kembali, menerapkan, atau mendistribusikan proyek ini dalam bentuk apa pun — khususnya sebagai portofolio pribadi Anda sendiri.
+
+Repositori ini dibuat publik **hanya** untuk keperluan integrasi (seperti Vercel & Sanity) serta debugging/pratinjau pribadi.
+
+Seluruh hak cipta dilindungi © 2025 Dwi Paranggi Purba.
+
+---
+
 ## 📬 Contact
 
 If you'd like to connect or collaborate, feel free to reach out:
 
-- 📧 Email: [dwipurba77@gmail.com]
-- 💼 LinkedIn: [https://www.linkedin.com/in/dwi-paranggi-purba-250564226/)]
-- 🌍 Portfolio Live (soon): [https://portfolio-react-dinamis.vercel.app]
+- 📧 Email: dwipurba77@gmail.com  
+- 💼 LinkedIn: [https://www.linkedin.com/in/dwi-paranggi-purba-250564226/](https://www.linkedin.com/in/dwi-paranggi-purba-250564226/)  
+- 🌍 Portfolio Live (soon): [https://portfolio-react-dinamis.vercel.app](https://portfolio-react-dinamis.vercel.app)
 
 ---
 
-> 🙌 Thank you for checking out my portfolio repository! Contributions, suggestions, and feedback are welcome.
-
+> 🙌 Thank you for checking out my portfolio repository! Suggestions and feedback are always welcome — just don’t claim my work as yours 😉
