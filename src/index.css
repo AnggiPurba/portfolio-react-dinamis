@@ -497,7 +497,7 @@ font-weight: 500;
   justify-content: space-between;
   gap: 30px;
   margin-top: 35px;
-  flex-wrap: wrap; 
+  flex-wrap: wrap; /* Ini yang membuatnya otomatis jadi 1 kolom di layar kecil */
 }
 
 /* Mengatur lebar setiap kolom */
@@ -512,7 +512,7 @@ font-weight: 500;
   order: -1; 
 }
 
-/* Di layar kecil, kembalikan urutan agar tidak terbalik */
+/* Di layar kecil, kembalikan urutan agar tidak terbalik saat ditumpuk */
 @media (max-width: 991px) {
   #resume .resume-row > *:last-child {
     order: initial;
@@ -607,14 +607,6 @@ font-weight: 500;
   color: var(--textColor);
   font-size: 15px;
   font-weight: 500;
-}
-
-
-/* RESPONSIVE: Saat layar kecil, ubah grid menjadi 1 kolom */
-@media (max-width: 991px) {
-  #resume .resume-row {
-    grid-template-columns: 1fr; /* Tumpuk semua section secara vertikal */
-  }
 }
 
 /* Skill section */
