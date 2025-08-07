@@ -324,7 +324,16 @@ section {
   margin-top: 15px;
 }
 
-/* === Tambahan Accordion === */
+/* Accordion Hover Behavior */
+.accordion-wrapper {
+  margin-top: 20px;
+  position: relative;
+}
+
+.accordion-wrapper:hover .accordion-content {
+  max-height: 500px; /* cukup besar supaya semua muat */
+}
+
 .accordion-header {
   width: 100%;
   padding: 15px 20px;
@@ -337,13 +346,8 @@ section {
   align-items: center;
   border: 1px solid var(--borderColor);
   border-radius: 6px;
-  cursor: pointer;
-  margin-top: 20px;
+  cursor: default;
   transition: background 0.3s;
-}
-
-.accordion-header:hover {
-  background: var(--bgColor);
 }
 
 .accordion-header .arrow {
@@ -351,20 +355,12 @@ section {
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 5px;
-  transition: transform 0.3s;
-}
-
-.accordion-header .arrow.down {
   transform: rotate(45deg);
 }
 
-.accordion-header.active .arrow.down {
-  transform: rotate(-135deg);
-}
-
 .accordion-content {
-  max-height: 0;
   overflow: hidden;
+  max-height: 0;
   transition: max-height 0.4s ease;
 }
 
@@ -379,6 +375,7 @@ section {
   list-style: none;
   margin: 10px 0;
   color: var(--textColor);
+  word-break: break-word;
 }
 
 .accordion-content .icon-list ul li i {
@@ -395,7 +392,6 @@ section {
   color: var(--textColor);
   font-weight: 500;
 }
-
 
 /* about section */
 #about {
@@ -446,7 +442,7 @@ section {
   display: flex;
   margin-top: 20px;
   gap: 40px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 #about .about-col .info-col .icon-list-col .icon-list ul li {
