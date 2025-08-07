@@ -892,9 +892,7 @@ font-weight: 500;
     left: auto;
     right: 80px;
   }
-  #resume .resume-row > *:last-child {
-  order: initial;
- }
+
 }
 
 /* === Footer === */
