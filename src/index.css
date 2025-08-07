@@ -485,22 +485,27 @@ font-weight: 500;
 }
 
 /* === KODE PERBAIKAN SELESAI === */
-
 /* Resume section */
 #resume {
 background-color: var(--whiteColor);
 }
 
-/* Menggunakan CSS Grid untuk layout resume */
+/* KEMBALIKAN KE LAYOUT FLEXBOX DUA KOLOM */
 #resume .resume-row {
-  display: grid;
-  /* Membuat 3 kolom dengan lebar yang sama di layar besar */
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px; /* Jarak antar kolom */
-  margin-top: 35px;
+display: flex;
+justify-content: space-between;
+gap: 30px;
+margin-top: 35px;
+flex-wrap: wrap; /* Agar menjadi 1 kolom di layar kecil */
 }
 
-/* Timeline dan elemen lainnya tetap sama */
+/* Atur lebar setiap kolom */
+#resume .resume-cols {
+flex-basis: 48%;
+min-width: 300px;
+}
+
+/* Styling untuk timeline dan lainnya tetap sama */
 .timeline-wrapper {
 position: relative;
 padding-top: 10px;
