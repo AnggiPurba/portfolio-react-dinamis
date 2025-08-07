@@ -336,6 +336,41 @@ section {
     flex-direction: column-reverse;
   }
 }
+/* ——————————————————————————————
+   Accordion-Hover for About → Personal Information
+   —————————————————————————————— */
+
+/* collapse each li to one line */
+#about .info-col .icon-list-col .icon-list ul li {
+  position: relative;
+  overflow: hidden;
+  max-height: 1.6em;                /* about one line of text */
+  padding-right: 1.8em;             /* room for the arrow */
+  transition: max-height 0.3s ease;
+  cursor: pointer;
+}
+
+/* add the little arrow */
+#about .info-col .icon-list-col .icon-list ul li::after {
+  content: "▼";
+  position: absolute;
+  right: 0.5em;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75em;
+  transition: transform 0.3s ease;
+  color: var(--themeColor2);
+}
+
+/* expand on hover */
+#about .info-col .icon-list-col .icon-list ul li:hover {
+  max-height: 4.5em;                /* adjust if you need to fit more lines */
+}
+
+#about .info-col .icon-list-col .icon-list ul li:hover::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
 
 
 #about .about-col .img-col {
