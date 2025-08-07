@@ -2,7 +2,7 @@
 
 import React from 'react';
 import SubSectionHeading from './SubSectionHeading';
-import { Parallax } from 'react-scroll-parallax'; // <-- Import Parallax
+import { Parallax } from 'react-scroll-parallax'; // Pastikan ini di-import
 
 // Fungsi sortTimeline tidak perlu diubah
 const sortTimeline = (items) => {
@@ -32,7 +32,7 @@ const Resume = ({ data }) => {
    <p className="sub-para">{data.sub_para}</p>
    
       <div className="resume-row">
-        {/* Kolom 1: Berisi Education dan Summary */}
+        {/* Kolom PERTAMA di HTML: Berisi Education dan Summary */}
         <Parallax speed={-5}> {/* Efek paralaks untuk seluruh kolom ini */}
           <div className="resume-cols">
             <SubSectionHeading title={data.education_title} />
@@ -55,7 +55,7 @@ const Resume = ({ data }) => {
           </div>
         </Parallax>
 
-        {/* Kolom 2: Berisi Experience */}
+        {/* Kolom KEDUA di HTML: Berisi Experience */}
         <Parallax speed={5}> {/* Efek paralaks dengan kecepatan berbeda */}
           <div className="resume-cols">
             <SubSectionHeading title={data.experience_title} />

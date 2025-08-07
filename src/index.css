@@ -506,26 +506,25 @@ font-weight: 500;
   min-width: 300px;
 }
 
-/* Membuat kolom Experience muncul di sebelah kiri */
-/* Kita menargetkan div kedua di dalam .resume-row (berdasarkan JSX di atas) */
+/* MEMBUAT KOLOM EXPERIENCE MUNCUL DI SEBELAH KIRI */
+/* Kita menargetkan elemen Parallax kedua (yang berisi Experience) */
 #resume .resume-row > *:last-child {
-  order: -1; /* Nilai order lebih kecil akan ditampilkan lebih dulu */
+  order: -1; 
 }
 
+/* Di layar kecil, kembalikan urutan agar tidak terbalik */
 @media (max-width: 991px) {
-  /* Hapus 'order' di layar kecil agar urutannya kembali normal */
   #resume .resume-row > *:last-child {
     order: initial;
   }
 }
 
-/* Styling untuk timeline dan lainnya tetap sama */
+/* MENGEMBALIKAN TITIK-TITIK TIMELINE */
 .timeline-wrapper {
   position: relative;
   padding-top: 10px;
   border-left: 2px solid var(--themeColor2);
 }
-
 
 #resume .my-info,
 #resume .my-edu,
@@ -539,24 +538,48 @@ font-weight: 500;
   padding-left: 30px;
   margin-bottom: 20px;
   position: relative;
-  border-left: 2px solid var(--themeColor2);
+  border-left: 2px solid var(--themeColor2); 
 }
 
+#resume .my-info::before,
+#resume .my-edu::before,
+#resume .pro-exp::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: -10px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid var(--themeColor2);
+  background-color: var(--bgColor);
+  z-index: 1;
+}
 
+.timeline-wrapper > div:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-wrapper > div:first-child::before,
+#resume .my-info:first-of-type::before {
+  top: 0px; 
+}
+
+/* Styling untuk teks, judul, dll. */
 #resume h3 {
-color: var(--headingColor);
-font-size: 17px;
-font-weight: 600;
-text-transform: uppercase;
+  color: var(--headingColor);
+  font-size: 17px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 #resume .my-info p,
 #resume .my-edu p,
 #resume .pro-exp p {
-color: var(--textColor);
-font-weight: 500;
-font-style: italic;
-margin: 10px 0;
+  color: var(--textColor);
+  font-weight: 500;
+  font-style: italic;
+  margin: 10px 0;
 }
 
 #resume .pro-exp p {
@@ -564,26 +587,26 @@ margin: 10px 0;
 }
 
 #resume .sp-box {
-padding: 4px 22px;
-background-color: var(--themeColor);
-color: #ffffff;
-border-radius: 3px;
-font-size: 14px;
-font-weight: 600;
-margin: 5px 0;
-display: inline-block;
+  padding: 4px 22px;
+  background-color: var(--themeColor);
+  color: #ffffff;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 5px 0;
+  display: inline-block;
 }
 
 #resume .pro-exp ul {
-list-style: none;
-padding-left: 5px;
+  list-style: none;
+  padding-left: 5px;
 }
 
 #resume .pro-exp ul li {
-margin: 10px 0;
-color: var(--textColor);
-font-size: 15px;
-font-weight: 500;
+  margin: 10px 0;
+  color: var(--textColor);
+  font-size: 15px;
+  font-weight: 500;
 }
 
 
