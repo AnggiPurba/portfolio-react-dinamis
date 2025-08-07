@@ -488,24 +488,35 @@ font-weight: 500;
 /* Resume section */
 #resume {
   background-color: var(--whiteColor);
-  /* Tambahkan overflow-x: hidden untuk mencegah scroll horizontal aneh karena paralaks */
-  overflow-x: hidden; 
+  overflow-x: hidden; /* Mencegah bug scroll horizontal karena paralaks */
 }
 
-/* Aturan baru untuk setiap bagian resume agar rapi */
-#resume .resume-section-wrapper {
-  margin-bottom: 70px; /* Jarak antar bagian */
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
+/* Mengatur layout dua kolom dengan Flexbox */
+#resume .resume-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 35px;
+  flex-wrap: wrap; 
 }
 
-/* Hapus aturan lama yang sudah tidak terpakai */
-#resume .resume-row, #resume .resume-cols {
-  display: block; /* Kembalikan ke default */
-  width: auto;
-  flex-basis: auto;
-  gap: 0;
+/* Mengatur lebar setiap kolom */
+#resume .resume-cols {
+  flex-basis: 48%;
+  min-width: 300px;
+}
+
+/* Membuat kolom Experience muncul di sebelah kiri */
+/* Kita menargetkan div kedua di dalam .resume-row (berdasarkan JSX di atas) */
+#resume .resume-row > *:last-child {
+  order: -1; /* Nilai order lebih kecil akan ditampilkan lebih dulu */
+}
+
+@media (max-width: 991px) {
+  /* Hapus 'order' di layar kecil agar urutannya kembali normal */
+  #resume .resume-row > *:last-child {
+    order: initial;
+  }
 }
 
 /* Styling untuk timeline dan lainnya tetap sama */
@@ -514,6 +525,7 @@ font-weight: 500;
   padding-top: 10px;
   border-left: 2px solid var(--themeColor2);
 }
+
 
 #resume .my-info,
 #resume .my-edu,
