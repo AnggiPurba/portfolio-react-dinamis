@@ -512,12 +512,6 @@ font-weight: 500;
   order: -1; 
 }
 
-/* Di layar kecil, kembalikan urutan agar tidak terbalik saat ditumpuk */
-@media (max-width: 991px) {
-  #resume .resume-row > *:last-child {
-    order: initial;
-  }
-}
 
 /* MENGEMBALIKAN TITIK-TITIK TIMELINE */
 .timeline-wrapper {
