@@ -452,34 +452,36 @@ section {
  flex-wrap: wrap;
 }
 
-/* Mengatur setiap item list menjadi flex container */
+/* === KODE PERBAIKAN UNTUK MASALAH JARAK/GAP === */
+
+/* 1. Kunci Utama: Mengatur setiap baris menjadi flex container */
 #about .about-col .info-col .icon-list-col .icon-list ul li {
- list-style: none;
- margin: 12px 0;
-  display: flex; /* Menggunakan Flexbox untuk alignment */
-  align-items: flex-start; /* Konten rata atas (ikon, label, dan link) */
+list-style: none;
+margin: 12px 0;
+  display: flex; /* Menjadikan baris ini flexbox */
+  align-items: flex-start; /* Meratakan semua isinya ke atas */
 }
 
-/* Mengatur ikon */
+/* 2. Mengatur ikon (panah) */
 #about .about-col .info-col .icon-list-col .icon-list ul li i {
- color: var(--themeColor2);
- margin-right: 8px;
-  margin-top: 5px; /* Menyesuaikan posisi vertikal ikon agar sejajar */
+color: var(--themeColor2);
+  margin-right: 8px; /* Jarak ikon ke teks */
+  padding-top: 5px; /* Menurunkan ikon sedikit agar sejajar */
 }
 
-/* Mengatur label (e.g., "LinkedIn:") */
+/* 3. Mengatur label ("GitHub::") */
 #about .about-col .info-col .icon-list-col .icon-list ul li strong {
- color: var(--headingColor);
- font-weight: 600;
- margin-right: 6px; /* Jarak antara label dan link */
-  flex-shrink: 0; /* Mencegah label pindah baris sendiri */
+color: var(--headingColor);
+font-weight: 600;
+  margin-right: 6px; /* Jarak dari label ke link */
+  flex-shrink: 0; /* PENTING: Mencegah label ini turun baris */
 }
 
-/* Mengatur link (konten) */
+/* 4. Mengatur link/konten di sebelah kanan label */
 #about .about-col .info-col .icon-list-col .icon-list ul li span {
- color: var(--textColor);
- font-weight: 500;
-  word-break: break-all; /* Memaksa link panjang untuk pindah baris dengan benar */
+color: var(--textColor);
+font-weight: 500;
+  word-break: break-all; /* PENTING: Memaksa link panjang untuk pindah baris */
 }
 
 /* === KODE PERBAIKAN SELESAI === */
