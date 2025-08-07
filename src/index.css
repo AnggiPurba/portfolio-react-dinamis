@@ -427,7 +427,12 @@ padding: 50px 30px;
 
 #about .about-col .info-col {
   order: 1; 
- flex: 2 1 400px;
+  flex: 2 1 400px;
+  
+  /* Properti yang ditambahkan */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* <-- TAMBAHKAN INI */
 }
 
 #about .about-col .info-col h2 {
