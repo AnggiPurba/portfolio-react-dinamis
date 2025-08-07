@@ -399,76 +399,90 @@ section {
 
 /* about section */
 #about {
-  background-color: var(--whiteColor);
+ background-color: var(--whiteColor);
 }
 #about .about-col {
-  display: flex;
-  gap: 20px;
-  margin-top: 25px;
-  flex-wrap: wrap;
+ display: flex;
+ gap: 20px;
+ margin-top: 25px;
+ flex-wrap: wrap;
 }
 @media (max-width: 670px) {
-  #about .about-col {
-    flex-direction: column-reverse;
-  }
+ #about .about-col {
+  flex-direction: column-reverse;
+ }
 }
 
 
 #about .about-col .img-col {
-   order: 2;   
-  flex: 1 1 300px;
-  text-align: center;
+ order: 2;  
+ flex: 1 1 300px;
+ text-align: center;
 }
 
 #about .about-col .img-col img {
-  width: 100%;
-  max-width: 350px;
+ width: 100%;
+ max-width: 350px;
 }
 
 #about .about-col .info-col {
-    order: 1; 
-  flex: 2 1 400px;
+  order: 1; 
+ flex: 2 1 400px;
 }
 
 #about .about-col .info-col h2 {
-  color: var(--themeColor);
-  font-weight: 700;
-  font-size: 35px;
+ color: var(--themeColor);
+ font-weight: 700;
+ font-size: 35px;
 }
 
 #about .about-col .info-col p {
-  color: var(--textColor);
-  font-size: 15px;
-  font-style: italic;
+ color: var(--textColor);
+ font-size: 15px;
+ font-style: italic;
 }
+
+
+/* === KODE PERBAIKAN DIMULAI DI SINI === */
 
 #about .about-col .info-col .icon-list-col {
-  display: flex;
-  margin-top: 20px;
-  gap: 40px;
-  flex-wrap: wrap;
+ display: flex;
+ margin-top: 20px;
+ gap: 40px; /* Jarak antar kolom di layar besar */
+ flex-wrap: wrap;
 }
 
+/* Mengatur setiap item list menjadi flex container */
 #about .about-col .info-col .icon-list-col .icon-list ul li {
-  list-style: none;
-  margin: 15px 0;
+ list-style: none;
+ margin: 12px 0;
+  display: flex; /* Menggunakan Flexbox untuk alignment */
+  align-items: flex-start; /* Konten rata atas (ikon, label, dan link) */
 }
 
+/* Mengatur ikon */
 #about .about-col .info-col .icon-list-col .icon-list ul li i {
-  color: var(--themeColor2);
-  margin-right: 5px;
+ color: var(--themeColor2);
+ margin-right: 8px;
+  margin-top: 5px; /* Menyesuaikan posisi vertikal ikon agar sejajar */
 }
 
+/* Mengatur label (e.g., "LinkedIn:") */
 #about .about-col .info-col .icon-list-col .icon-list ul li strong {
-  color: var(--headingColor);
-  font-weight: 600;
-  margin-right: 2px;
+ color: var(--headingColor);
+ font-weight: 600;
+ margin-right: 6px; /* Jarak antara label dan link */
+  flex-shrink: 0; /* Mencegah label pindah baris sendiri */
 }
 
+/* Mengatur link (konten) */
 #about .about-col .info-col .icon-list-col .icon-list ul li span {
-  color: var(--textColor);
-  font-weight: 500;
+ color: var(--textColor);
+ font-weight: 500;
+  word-break: break-all; /* Memaksa link panjang untuk pindah baris dengan benar */
 }
+
+/* === KODE PERBAIKAN SELESAI === */
 
 /* Resume section */
 #resume {
