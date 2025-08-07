@@ -488,116 +488,115 @@ font-weight: 500;
 
 /* Resume section */
 #resume {
-  background-color: var(--whiteColor);
+background-color: var(--whiteColor);
 }
 
+/* Menggunakan CSS Grid untuk layout resume */
 #resume .resume-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  display: grid;
+  /* Membuat 3 kolom dengan lebar yang sama di layar besar */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px; /* Jarak antar kolom */
   margin-top: 35px;
-  flex-wrap: wrap;
 }
 
-#resume .resume-row .resume-cols {
-  flex-basis: 48%;
-  min-width: 300px;
-}
-
-#resume .resume-row .resume-cols h2 {
-  color: var(--headingColor);
-  font-weight: 600;
-  font-size: 25px;
-  margin: 15px 0;
-}
-
-/* --- PERBAIKAN TIMELINE --- */
+/* Timeline dan elemen lainnya tetap sama */
 .timeline-wrapper {
-  position: relative;
-  padding-top: 10px;
-  border-left: 2px solid var(--themeColor2);
+position: relative;
+padding-top: 10px;
+border-left: 2px solid var(--themeColor2);
 }
 
-#resume .resume-row .resume-cols .my-info {
+#resume .my-info,
+#resume .my-edu,
+#resume .pro-exp {
+  padding: 0 0 20px 30px;
+margin: 0;
+position: relative;
+}
+
+/* Pindahkan my-info agar punya timeline juga jika diinginkan */
+#resume .my-info {
   padding-left: 30px;
   margin-bottom: 20px;
   position: relative;
+  border-left: 2px solid var(--themeColor2); /* Tambahkan garis jika mau */
 }
 
-#resume .resume-row .resume-cols .my-edu,
-#resume .resume-row .resume-cols .pro-exp {
-  padding: 0 0 20px 30px;
-  margin: 0;
-  position: relative;
-}
-
-#resume .resume-row .resume-cols .my-info::before,
-#resume .resume-row .resume-cols .my-edu::before,
-#resume .resume-row .resume-cols .pro-exp::before {
-  content: "";
-  position: absolute;
-  top: 5px;
-  left: -10px;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  border: 2px solid var(--themeColor2);
-  background-color: var(--bgColor);
-  z-index: 1;
+#resume .my-info::before,
+#resume .my-edu::before,
+#resume .pro-exp::before {
+content: "";
+position: absolute;
+top: 5px;
+left: -10px;
+width: 15px;
+height: 15px;
+border-radius: 50%;
+border: 2px solid var(--themeColor2);
+background-color: var(--bgColor);
+z-index: 1;
 }
 
 .timeline-wrapper > div:last-child {
-  padding-bottom: 0;
+padding-bottom: 0;
 }
 
-.timeline-wrapper > div:first-child::before {
-  top: 0px; 
-}
-/* --- AKHIR PERBAIKAN TIMELINE --- */
-
-#resume .resume-row .resume-cols h3 {
-  color: var(--headingColor);
-  font-size: 17px;
-  font-weight: 600;
-  text-transform: uppercase;
+.timeline-wrapper > div:first-child::before,
+#resume .my-info:first-of-type::before {
+top: 0px; 
 }
 
-#resume .resume-row .resume-cols .my-info p,
-#resume .resume-row .resume-cols .my-edu p {
-  color: var(--textColor);
-  font-weight: 500;
-  font-style: italic;
-  margin: 10px 0;
+
+#resume h3 {
+color: var(--headingColor);
+font-size: 17px;
+font-weight: 600;
+text-transform: uppercase;
 }
 
-#resume .resume-row .resume-cols .pro-exp p {
-    color: var(--textColor);
-    font-weight: 500;
-    font-style: italic;
-    margin: 5px 0;
+#resume .my-info p,
+#resume .my-edu p,
+#resume .pro-exp p {
+color: var(--textColor);
+font-weight: 500;
+font-style: italic;
+margin: 10px 0;
 }
 
-#resume .resume-row .resume-cols .sp-box {
-  padding: 4px 22px;
-  background-color: var(--themeColor);
-  color: #ffffff;
-  border-radius: 3px;
-  font-size: 14px;
-  font-weight: 600;
+#resume .pro-exp p {
   margin: 5px 0;
-  display: inline-block;
 }
 
-#resume .resume-row .resume-cols ul {
-    list-style: none;
-    padding-left: 5px;
+#resume .sp-box {
+padding: 4px 22px;
+background-color: var(--themeColor);
+color: #ffffff;
+border-radius: 3px;
+font-size: 14px;
+font-weight: 600;
+margin: 5px 0;
+display: inline-block;
 }
 
-#resume .resume-row .resume-cols ul li {
-    margin: 10px 0;
-    color: var(--textColor);
-    font-size: 15px;
-    font-weight: 500;
+#resume .pro-exp ul {
+list-style: none;
+padding-left: 5px;
+}
+
+#resume .pro-exp ul li {
+margin: 10px 0;
+color: var(--textColor);
+font-size: 15px;
+font-weight: 500;
+}
+
+
+/* RESPONSIVE: Saat layar kecil, ubah grid menjadi 1 kolom */
+@media (max-width: 991px) {
+  #resume .resume-row {
+    grid-template-columns: 1fr; /* Tumpuk semua section secara vertikal */
+  }
 }
 
 /* Skill section */
@@ -860,20 +859,3 @@ font-weight: 500;
   padding: 20px 30px;
   text-align: center;
 }
-
-/* === KODE UNTUK MENGUBAH URUTAN RESUME === */
-
-/* Targetkan kolom kedua/terakhir (yang berisi "Experience") */
-#resume .resume-row .resume-cols:last-child {
-  order: -1; /* Nilai order yang lebih kecil akan ditampilkan lebih dulu */
-}
-
-/* Saat di layar kecil (mobile), layout akan menjadi 1 kolom.
-  Kita perlu mengembalikan urutannya agar tidak aneh.
-*/
-@media (max-width: 991px) {
-  #resume .resume-row .resume-cols:last-child {
-    order: initial; /* 'initial' akan mereset 'order' ke urutan asli di HTML */
-  }
-}
-
