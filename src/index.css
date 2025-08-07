@@ -446,7 +446,7 @@ section {
   display: flex;
   margin-top: 20px;
   gap: 40px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 #about .about-col .info-col .icon-list-col .icon-list ul li {
