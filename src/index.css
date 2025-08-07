@@ -487,69 +487,47 @@ font-weight: 500;
 /* === KODE PERBAIKAN SELESAI === */
 /* Resume section */
 #resume {
-background-color: var(--whiteColor);
+  background-color: var(--whiteColor);
+  /* Tambahkan overflow-x: hidden untuk mencegah scroll horizontal aneh karena paralaks */
+  overflow-x: hidden; 
 }
 
-/* KEMBALIKAN KE LAYOUT FLEXBOX DUA KOLOM */
-#resume .resume-row {
-display: flex;
-justify-content: space-between;
-gap: 30px;
-margin-top: 35px;
-flex-wrap: wrap; /* Agar menjadi 1 kolom di layar kecil */
+/* Aturan baru untuk setiap bagian resume agar rapi */
+#resume .resume-section-wrapper {
+  margin-bottom: 70px; /* Jarak antar bagian */
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Atur lebar setiap kolom */
-#resume .resume-cols {
-flex-basis: 48%;
-min-width: 300px;
+/* Hapus aturan lama yang sudah tidak terpakai */
+#resume .resume-row, #resume .resume-cols {
+  display: block; /* Kembalikan ke default */
+  width: auto;
+  flex-basis: auto;
+  gap: 0;
 }
 
 /* Styling untuk timeline dan lainnya tetap sama */
 .timeline-wrapper {
-position: relative;
-padding-top: 10px;
-border-left: 2px solid var(--themeColor2);
+  position: relative;
+  padding-top: 10px;
+  border-left: 2px solid var(--themeColor2);
 }
 
 #resume .my-info,
 #resume .my-edu,
 #resume .pro-exp {
   padding: 0 0 20px 30px;
-margin: 0;
-position: relative;
+  margin: 0;
+  position: relative;
 }
 
-/* Pindahkan my-info agar punya timeline juga jika diinginkan */
 #resume .my-info {
   padding-left: 30px;
   margin-bottom: 20px;
   position: relative;
-  border-left: 2px solid var(--themeColor2); /* Tambahkan garis jika mau */
-}
-
-#resume .my-info::before,
-#resume .my-edu::before,
-#resume .pro-exp::before {
-content: "";
-position: absolute;
-top: 5px;
-left: -10px;
-width: 15px;
-height: 15px;
-border-radius: 50%;
-border: 2px solid var(--themeColor2);
-background-color: var(--bgColor);
-z-index: 1;
-}
-
-.timeline-wrapper > div:last-child {
-padding-bottom: 0;
-}
-
-.timeline-wrapper > div:first-child::before,
-#resume .my-info:first-of-type::before {
-top: 0px; 
+  border-left: 2px solid var(--themeColor2);
 }
 
 
