@@ -644,95 +644,126 @@ font-weight: 500;
 
 /* Portfolio section */
 #portfolio {
-  background-color: var(--whiteColor);
+ background-color: var(--whiteColor);
 }
+
 #portfolio .port-row {
-  margin-top: 50px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 35px;
+ margin-top: 50px;
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+ grid-gap: 35px;
 }
 
 #portfolio h2 {
-  color: var(--headingColor);
-  margin-top: 20px;
-  margin-bottom: 20px;
+ color: var(--headingColor);
+ margin-top: 20px;
+ margin-bottom: 20px;
 }
 
 #portfolio .port-row .port-item {
-  position: relative;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 0 20px var(--boxShadowColor);
+ position: relative;
+ border-radius: 10px;
+ overflow: hidden;
+ box-shadow: 0 0 20px var(--boxShadowColor);
+  cursor: pointer; /* Menandakan item bisa di-klik */
 }
 
 #portfolio .port-row .port-item .port-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-  display: block;
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ border-radius: 10px;
+ display: block;
+  transition: transform 0.4s ease; /* Transisi untuk efek zoom */
+}
+
+/* Efek zoom pada gambar saat di-hover */
+#portfolio .port-row .port-item:hover .port-img img {
+  transform: scale(1.1);
 }
 
 #portfolio .port-row .port-item .port-info {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--themeColor2);
-  padding: 15px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  transform: scale(0);
-  transition: 0.4s;
-  border-radius: 10px;
-  visibility: hidden;
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background-color: var(--themeColor2);
+ padding: 20px;
+ text-align: center;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ gap: 10px;
+ border-radius: 10px;
+  /* Atur kemunculan overlay agar lebih halus */
+ opacity: 0;
+ transform: scale(0.9);
+ transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
+/* === TAHAP 1: Saat di-hover, tampilkan overlay === */
 #portfolio .port-row .port-item:hover .port-info {
-  transform: scale(1);
-  visibility: visible;
+ opacity: 1;
+ transform: scale(1);
 }
 
-#portfolio .port-row .port-item .port-info h4 {
+/* Secara default, sembunyikan tombol di dalam overlay */
+#portfolio .port-row .port-item .port-links {
+  display: none;
+}
+
+/* Styling untuk deskripsi di dalam overlay */
+#portfolio .port-row .port-item .port-description h4 {
   color: #fff;
-  font-size: 25px;
+  font-size: 22px;
   font-weight: 600;
+  margin-bottom: 5px;
 }
 
-#portfolio .port-row .port-item .port-info h4 + p {
+#portfolio .port-row .port-item .port-description p {
   color: #fff;
   font-size: 14px;
 }
 
-.port-links {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
+
+/* === TAHAP 2: Saat di-klik (class .show-buttons aktif) === */
+
+/* Saat item di-klik, sembunyikan deskripsinya */
+#portfolio .port-row .port-item.show-buttons .port-description {
+  display: none;
 }
 
+/* Dan tampilkan tombol-tombolnya */
+#portfolio .port-row .port-item.show-buttons .port-links {
+  display: flex;
+  flex-direction: column; /* Tombol ditumpuk vertikal */
+  gap: 12px;
+  align-items: center;
+}
+
+/* Styling untuk tombol-tombolnya */
 .port-link-btn {
-    text-decoration: none;
-    background-color: #fff;
-    color: var(--themeColor);
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: 0.3s;
+  text-decoration: none;
+  background-color: #fff;
+  color: var(--themeColor);
+  padding: 10px 25px; /* Sedikit lebih besar */
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600; /* Dibuat lebih tebal */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  width: 150px; /* Beri lebar tetap agar rapi */
+  justify-content: center;
 }
 
 .port-link-btn:hover {
-    background-color: var(--sideBGColor);
-    color: #fff;
+  background-color: var(--sideBGColor);
+  color: #fff;
+  transform: translateY(-3px); /* Efek sedikit terangkat */
 }
 
 /* Contact section */
