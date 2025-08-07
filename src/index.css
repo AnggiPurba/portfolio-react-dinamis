@@ -324,6 +324,79 @@ section {
   margin-top: 15px;
 }
 
+/* === Tambahan Accordion === */
+.accordion-header {
+  width: 100%;
+  padding: 15px 20px;
+  background: var(--whiteColor);
+  color: var(--headingColor);
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--borderColor);
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.3s;
+}
+
+.accordion-header:hover {
+  background: var(--bgColor);
+}
+
+.accordion-header .arrow {
+  border: solid var(--textColor);
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 5px;
+  transition: transform 0.3s;
+}
+
+.accordion-header .arrow.down {
+  transform: rotate(45deg);
+}
+
+.accordion-header.active .arrow.down {
+  transform: rotate(-135deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.accordion-content .icon-list-col {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding: 15px 0;
+}
+
+.accordion-content .icon-list ul li {
+  list-style: none;
+  margin: 10px 0;
+  color: var(--textColor);
+}
+
+.accordion-content .icon-list ul li i {
+  color: var(--themeColor2);
+  margin-right: 5px;
+}
+
+.accordion-content .icon-list ul li strong {
+  color: var(--headingColor);
+  font-weight: 600;
+}
+
+.accordion-content .icon-list ul li span {
+  color: var(--textColor);
+  font-weight: 500;
+}
+
+
 /* about section */
 #about {
   background-color: var(--whiteColor);
@@ -772,69 +845,3 @@ section {
   text-align: center;
 }
 
-/* Hide default marker */
-.accordion summary::-webkit-details-marker {
-  display: none;
-}
-.accordion summary::marker {
-  display: none;
-}
-
-/* Style container <details> */
-.accordion {
-  border: 1px solid var(--borderColor);
-  border-radius: 6px;
-  background: var(--whiteColor);
-  max-width: 600px;
-  margin-top: 20px;
-  overflow: hidden;
-}
-
-/* Style <summary> sebagai header accordion */
-.accordion summary {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--headingColor);
-  background: var(--whiteColor);
-  transition: background 0.3s;
-}
-.accordion summary:hover {
-  background: var(--bgColor);
-}
-
-/* Panah custom */
-.accordion .arrow {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-right: 2px solid var(--textColor);
-  border-bottom: 2px solid var(--textColor);
-  transform: rotate(45deg);
-  transition: transform 0.3s;
-  margin-left: 8px;
-}
-
-/* Rotate panah saat open */
-.accordion[open] .arrow {
-  transform: rotate(-135deg);
-}
-
-/* Konten yang di-toggle */
-.accordion .info-list {
-  list-style: none;
-  padding: 0 20px 15px;
-  margin: 0;
-}
-.accordion .info-list li {
-  margin: 10px 0;
-  color: var(--textColor);
-}
-.accordion .info-list li strong {
-  color: var(--headingColor);
-}
