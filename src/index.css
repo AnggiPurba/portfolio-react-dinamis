@@ -321,7 +321,9 @@ section {
   margin-top: 15px;
 }
 
-/* about section */
+/* ——————————————————————————————
+   About Section
+   —————————————————————————————— */
 #about {
   background-color: var(--whiteColor);
 }
@@ -336,98 +338,81 @@ section {
     flex-direction: column-reverse;
   }
 }
-/* ——————————————————————————————
-   Accordion-Hover for About → Personal Information
-   —————————————————————————————— */
-
-/* collapse each li to one line */
-#about .info-col .icon-list-col .icon-list ul li {
-  position: relative;
-  overflow: hidden;
-  max-height: 1.6em;                /* about one line of text */
-  padding-right: 1.8em;             /* room for the arrow */
-  transition: max-height 0.3s ease;
-  cursor: pointer;
-}
-
-/* add the little arrow */
-#about .info-col .icon-list-col .icon-list ul li::after {
-  content: "▼";
-  position: absolute;
-  right: 0.5em;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.75em;
-  transition: transform 0.3s ease;
-  color: var(--themeColor2);
-}
-
-/* expand on hover */
-#about .info-col .icon-list-col .icon-list ul li:hover {
-  max-height: 4.5em;                /* adjust if you need to fit more lines */
-}
-
-#about .info-col .icon-list-col .icon-list ul li:hover::after {
-  transform: translateY(-50%) rotate(180deg);
-}
-
-
-
 #about .about-col .img-col {
-   order: 2;   
+  order: 2;
   flex: 1 1 300px;
   text-align: center;
 }
-
 #about .about-col .img-col img {
   width: 100%;
   max-width: 350px;
 }
-
 #about .about-col .info-col {
-    order: 1; 
+  order: 1;
   flex: 2 1 400px;
+  /* make this area an accordion on hover */
+  overflow: hidden;
+  max-height: 2em;                  /* show only the heading line */
+  position: relative;
+  transition: max-height 0.4s ease;
+  cursor: pointer;
 }
-
 #about .about-col .info-col h2 {
   color: var(--themeColor);
   font-weight: 700;
   font-size: 35px;
 }
-
 #about .about-col .info-col p {
   color: var(--textColor);
   font-size: 15px;
   font-style: italic;
 }
-
 #about .about-col .info-col .icon-list-col {
   display: flex;
   margin-top: 20px;
   gap: 40px;
   flex-wrap: wrap;
 }
-
 #about .about-col .info-col .icon-list-col .icon-list ul li {
   list-style: none;
   margin: 15px 0;
 }
-
 #about .about-col .info-col .icon-list-col .icon-list ul li i {
   color: var(--themeColor2);
   margin-right: 5px;
 }
-
 #about .about-col .info-col .icon-list-col .icon-list ul li strong {
   color: var(--headingColor);
   font-weight: 600;
   margin-right: 2px;
 }
-
 #about .about-col .info-col .icon-list-col .icon-list ul li span {
   color: var(--textColor);
   font-weight: 500;
 }
+
+/* ——————————————————————————————
+   Hover-Accordion Indicator & Behavior
+   —————————————————————————————— */
+#about .about-col .info-col::after {
+  content: "▼";
+  position: absolute;
+  right: 1rem;
+  bottom: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--themeColor2);
+  transition: transform 0.3s ease;
+  pointer-events: none;
+}
+
+#about .about-col .info-col:hover {
+  max-height: 600px;                /* expand to show full content */
+}
+
+#about .about-col .info-col:hover::after {
+  transform: rotate(180deg);        /* flip arrow when open */
+}
+
 
 /* Resume section */
 #resume {
